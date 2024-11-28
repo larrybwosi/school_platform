@@ -11,14 +11,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { SubjectForm } from "@/components/subjects/subject-form";
 import { SubjectsTable } from "@/components/subjects/subjects-table";
 
 export function SubjectsView({ subjects, userRole }: any) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Card>
+    <Card className="border-none min-h-screen flex-1">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Subjects Management</CardTitle>
         {userRole === "admin" && (
@@ -33,7 +32,6 @@ export function SubjectsView({ subjects, userRole }: any) {
               <DialogHeader>
                 <DialogTitle>Add New Subject</DialogTitle>
               </DialogHeader>
-              <SubjectForm onSuccess={() => setOpen(false)} />
             </DialogContent>
           </Dialog>
         )}

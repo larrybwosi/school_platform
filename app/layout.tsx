@@ -1,10 +1,10 @@
-import { Inter } from 'next/font/google';
+import { Inter,Archivo } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 import { Providers } from '@/lib/providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Archivo({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'School Management System',

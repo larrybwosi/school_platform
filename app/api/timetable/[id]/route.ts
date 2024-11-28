@@ -9,11 +9,6 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await auth();
-
-    if (!session || session.user.role !== "admin") {
-      return new NextResponse("Unauthorized", { status: 403 });
-    }
 
     await db.delete(timetableSlots).where(eq(timetableSlots.id, params.id));
 
@@ -29,20 +24,14 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await auth();
-
-    if (!session || session.user.role !== "admin") {
-      return new NextResponse("Unauthorized", { status: 403 });
-    }
-
     const body = await req.json();
-    const { classId, teacherSubjectId, dayOfWeek, startTime, endTime } = body;
+    const { gradeId, teacherId, dayOfWeek, startTime, endTime } = body;
 
     const slot = await db
       .update(timetableSlots)
       .set({
-        classId,
-        teacherSubjectId,
+        gradeId,
+        teacherId,
         dayOfWeek: parseInt(dayOfWeek),
         startTime,
         endTime,

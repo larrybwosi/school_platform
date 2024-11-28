@@ -1,12 +1,32 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { getOverallInstitutionProgression, getBestPerformedSubject, getTeacherWithIncreasedPerformance, mockSubjects, mockStudents } from "./lib/mockData"
 import { TrendingUp, Award, UserCheck, Users } from 'lucide-react'
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, LineChart, Line } from 'recharts'
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { useInView } from "react-intersection-observer"
 
-export default function Overview() {
+export default function EnhancedOverview() {
+  const [isMobile, setIsMobile] = useState(false)
+  const controls = useAnimation()
+  const [ref, inView] = useInView()
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible")
+    }
+  }, [controls, inView])
+
   const progression = getOverallInstitutionProgression()
   const bestSubject = getBestPerformedSubject()
   const bestTeacher = getTeacherWithIncreasedPerformance()
@@ -18,141 +38,246 @@ export default function Overview() {
 
   const studentProgressionData = Array.from({ length: 12 }, (_, i) => {
     const monthData = mockStudents.reduce((acc, student) => {
-      const randomProgress = Math.floor(Math.random() * 5) + 1 // Random progress between 1 and 5
+      const randomProgress = Math.floor(Math.random() * 5) + 1
       return acc + randomProgress
     }, 0) / mockStudents.length
 
     return {
-      month: `Month ${i + 1}`,
+      month: `M${i + 1}`,
       averageProgress: monthData
     }
   })
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 10 
+      } 
+    }
+  }
+
+  const chartVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      transition: { 
+        type: "spring", 
+        stiffness: 120, 
+        damping: 10 
+      } 
+    }
+  }
+
+  const renderMetricCard = (title, value, description, icon, gradientFrom, gradientTo, darkFrom, darkTo) => (
+    <motion.div 
+      variants={cardVariants} 
+      initial="hidden" 
+      animate={controls}
+      className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+    >
+      <Card 
+        className={`
+          bg-gradient-to-br ${gradientFrom} ${gradientTo} 
+          dark:from-${darkFrom} dark:to-${darkTo} 
+          text-white 
+          overflow-hidden 
+          border-none 
+          shadow-xl 
+          rounded-2xl 
+          hover:ring-4 
+          hover:ring-opacity-50 
+          hover:ring-white/30
+        `}
+      >
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-6">
+          <CardTitle className="text-lg font-semibold tracking-wider">{title}</CardTitle>
+          {icon}
+        </CardHeader>
+        <CardContent className="px-6 pb-6">
+          <div className="text-4xl font-extrabold tracking-tight">{value}</div>
+          <p className="text-sm mt-2 opacity-80">{description}</p>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Card className="bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Overall Progress</CardTitle>
-            <TrendingUp className="h-4 w-4 text-green-600 dark:text-green-400" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400">{progression.progression}%</div>
-            <p className="text-xs text-green-600 dark:text-green-400">
-              from {progression.previousAverage}% to {progression.currentAverage}%
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl sm:text-5xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500 dark:from-purple-400 dark:to-blue-300"
+        >
+          Institution Performance Dashboard
+        </motion.h1>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <Card className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Best Performed Subject</CardTitle>
-            <Award className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{bestSubject.name}</div>
-            <p className="text-xs text-blue-600 dark:text-blue-400">
-              Average grade: {bestSubject.averageGrade}%
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
+        <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" ref={ref}>
+          {renderMetricCard(
+            "Overall Progress", 
+            `${progression.progression}%`, 
+            `From ${progression.previousAverage}% to ${progression.currentAverage}%`, 
+            <TrendingUp className="h-7 w-7 opacity-75" />,
+            "from-emerald-400 to-teal-500",
+            "dark:from-emerald-600 dark:to-teal-700",
+            "emerald-600",
+            "teal-700"
+          )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <Card className="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Top Performing Teacher</CardTitle>
-            <UserCheck className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{bestTeacher.name}</div>
-            <p className="text-xs text-purple-600 dark:text-purple-400">
-              Performance increase: {bestTeacher.performanceIncrease}%
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
+          {renderMetricCard(
+            "Best Subject", 
+            bestSubject.name, 
+            `Avg. grade: ${bestSubject.averageGrade}%`, 
+            <Award className="h-7 w-7 opacity-75" />,
+            "from-sky-400 to-indigo-500",
+            "dark:from-sky-600 dark:to-indigo-700",
+            "sky-600",
+            "indigo-700"
+          )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        <Card className="bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900 dark:to-yellow-800">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-            <Users className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{mockStudents.length}</div>
-            <p className="text-xs text-yellow-600 dark:text-yellow-400">
-              Across all grades
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
+          {renderMetricCard(
+            "Top Teacher", 
+            bestTeacher.name, 
+            `Perf. increase: ${bestTeacher.performanceIncrease}%`, 
+            <UserCheck className="h-7 w-7 opacity-75" />,
+            "from-pink-400 to-rose-500",
+            "dark:from-pink-600 dark:to-rose-700",
+            "pink-600",
+            "rose-700"
+          )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="md:col-span-2 lg:col-span-4"
-      >
-        <Card>
-          <CardHeader>
-            <CardTitle>Subject Performance</CardTitle>
-            <CardDescription>Average grades across all subjects</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={subjectPerformanceData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="averageGrade" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </motion.div>
+          {renderMetricCard(
+            "Total Students", 
+            mockStudents.length, 
+            "Across all grades", 
+            <Users className="h-7 w-7 opacity-75" />,
+            "from-amber-400 to-orange-500",
+            "dark:from-amber-600 dark:to-orange-700",
+            "amber-600",
+            "orange-700"
+          )}
+        </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="md:col-span-2 lg:col-span-4"
-      >
-        <Card>
-          <CardHeader>
-            <CardTitle>Student Progression</CardTitle>
-            <CardDescription>Average student progress over the past year</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={studentProgressionData}>
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="averageProgress" stroke="#82ca9d" />
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </motion.div>
+        <div className="mt-12 grid gap-8 grid-cols-1 lg:grid-cols-2">
+          <motion.div 
+            variants={chartVariants} 
+            initial="hidden" 
+            animate={controls}
+          >
+            <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-2xl border-none rounded-2xl overflow-hidden">
+              <CardHeader className="border-b border-gray-100 dark:border-gray-700 p-6">
+                <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                  Subject Performance
+                </CardTitle>
+                <CardDescription className="text-gray-500 dark:text-gray-400">
+                  Comprehensive analysis of subject averages
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <ChartContainer
+                  config={{
+                    averageGrade: {
+                      label: "Average Grade",
+                      color: "hsl(var(--chart-1))",
+                    },
+                  }}
+                  className="h-[300px] sm:h-[400px]"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={subjectPerformanceData} layout={isMobile ? "vertical" : "horizontal"}>
+                      {isMobile ? (
+                        <XAxis type="number" />
+                      ) : (
+                        <XAxis dataKey="name" />
+                      )}
+                      {isMobile ? (
+                        <YAxis type="category" dataKey="name" width={100} />
+                      ) : (
+                        <YAxis />
+                      )}
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Bar 
+                        dataKey="averageGrade" 
+                        fill="url(#subjectGradient)" 
+                        barSize={isMobile ? 20 : 40}
+                      />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+                <p className="mt-4 text-sm text-gray-600 dark:text-gray-300 italic">
+                  Insights into curriculum performance and subject strengths
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div 
+            variants={chartVariants} 
+            initial="hidden" 
+            animate={controls}
+          >
+            <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-2xl border-none rounded-2xl overflow-hidden">
+              <CardHeader className="border-b border-gray-100 dark:border-gray-700 p-6">
+                <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">
+                  Student Progression
+                </CardTitle>
+                <CardDescription className="text-gray-500 dark:text-gray-400">
+                  Student progress tracking over time
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <ChartContainer
+                  config={{
+                    averageProgress: {
+                      label: "Average Progress",
+                      color: "hsl(var(--chart-2))",
+                    },
+                  }}
+                  className="h-[300px] sm:h-[400px]"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={studentProgressionData}>
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Line 
+                        type="monotone" 
+                        dataKey="averageProgress" 
+                        stroke="url(#progressGradient)" 
+                        strokeWidth={3} 
+                        dot={{ r: 5, strokeWidth: 2 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+                <p className="mt-4 text-sm text-gray-600 dark:text-gray-300 italic">
+                  Visualizing learning trajectories and growth patterns
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
+
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="subjectGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#3B82F6" />
+            <stop offset="100%" stopColor="#8B5CF6" />
+          </linearGradient>
+          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#EC4899" />
+            <stop offset="100%" stopColor="#6366F1" />
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
   )
 }

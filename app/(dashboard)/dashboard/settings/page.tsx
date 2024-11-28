@@ -20,8 +20,38 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AcademicSettings } from "./components/academic";
+import { ClassRepresentatives } from "./components/classreps";
+import { StudentLeader } from "./components/studentleader";
+import { useState } from "react";
+import { GeneralSettings } from "./components/general";
 
 export default function SettingsPage() {
+  const [academicYear, setAcademicYear] = useState("2024");
+  const [gradingSystem, setGradingSystem] = useState("letter");
+  const [institutionData, setInstitutionData] = useState({
+    name: "International School of Excellence",
+    type: "K-12",
+    foundingYear: "1990",
+    motto: "Empowering minds, shaping futures",
+    logo: "/placeholder.svg?height=100&width=100",
+    email: "contact@school.com",
+    phone: "+1 234 567 890",
+    address: "123 Education Street, Learning City, 12345",
+    website: "https://www.schoolofexcellence.edu",
+    socialMedia: {
+      facebook: "https://facebook.com/schoolofexcellence",
+      twitter: "https://twitter.com/schoolofexcellence",
+      instagram: "https://instagram.com/schoolofexcellence",
+    },
+    accreditations: ["International Baccalaureate", "Cambridge Assessment"],
+    facilities: ["Library", "Science Labs", "Sports Complex", "Auditorium"],
+  });
+
+  const handleInstitutionDataChange = (newData: Partial<typeof institutionData>) => {
+    setInstitutionData((prevData) => ({ ...prevData, ...newData }));
+  };
+
   return (
     <div className="flex-1 space-y-4">
       <div className="flex items-center justify-between">
@@ -31,111 +61,28 @@ export default function SettingsPage() {
       <Tabs defaultValue="general" className="space-y-4">
         <TabsList>
           <TabsTrigger value="general">General</TabsTrigger>
+          <TabsTrigger value="academic">Academic</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>School Information</CardTitle>
-              <CardDescription>
-                Manage your school's basic information
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="schoolName">School Name</Label>
-                  <Input
-                    id="schoolName"
-                    placeholder="Enter school name"
-                    defaultValue="International School of Excellence"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Contact Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter contact email"
-                    defaultValue="contact@school.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    placeholder="Enter phone number"
-                    defaultValue="+1 234 567 890"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="timezone">Timezone</Label>
-                  <Select defaultValue="utc">
-                    <SelectTrigger id="timezone">
-                      <SelectValue placeholder="Select timezone" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="utc">UTC</SelectItem>
-                      <SelectItem value="est">EST</SelectItem>
-                      <SelectItem value="pst">PST</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <Separator />
-              <div className="space-y-2">
-                <Label htmlFor="address">Address</Label>
-                <Input
-                  id="address"
-                  placeholder="Enter school address"
-                  defaultValue="123 Education Street, Learning City, 12345"
-                />
-              </div>
-              <Button>Save Changes</Button>
-            </CardContent>
-          </Card>
+        <GeneralSettings
+            institutionData={institutionData}
+            onInstitutionDataChange={handleInstitutionDataChange}
+          />
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Academic Settings</CardTitle>
-              <CardDescription>
-                Configure academic year and grading settings
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="academicYear">Current Academic Year</Label>
-                  <Select defaultValue="2024">
-                    <SelectTrigger id="academicYear">
-                      <SelectValue placeholder="Select academic year" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2024">2024-2025</SelectItem>
-                      <SelectItem value="2023">2023-2024</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="gradingSystem">Grading System</Label>
-                  <Select defaultValue="letter">
-                    <SelectTrigger id="gradingSystem">
-                      <SelectValue placeholder="Select grading system" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="letter">Letter Grades (A-F)</SelectItem>
-                      <SelectItem value="percentage">Percentage</SelectItem>
-                      <SelectItem value="gpa">GPA (4.0 Scale)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <Button>Save Changes</Button>
-            </CardContent>
-          </Card>
+        </TabsContent>
+        <TabsContent value="academic" className="space-y-4">
+          <AcademicSettings
+            academicYear={academicYear}
+            setAcademicYear={setAcademicYear}
+            gradingSystem={gradingSystem}
+            setGradingSystem={setGradingSystem}
+          />
+          <ClassRepresentatives />
+          <StudentLeader />
         </TabsContent>
 
         <TabsContent value="notifications" className="space-y-4">

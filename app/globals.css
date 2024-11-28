@@ -80,3 +80,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+body {
+  @apply antialiased bg-background text-foreground;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100;
+}
+
+.card-gradient {
+  @apply bg-gradient-to-r from-blue-600 to-purple-600;
+}
+
+.button-gradient {
+  @apply bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700;
+}

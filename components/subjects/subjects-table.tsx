@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
+import { Subject } from "@/lib/mockData";
 
-export function SubjectsTable({ subjects, userRole }: any) {
+export function SubjectsTable({ subjects, userRole }: { subjects: Subject[], userRole: string }) {
   return (
     <Table>
       <TableHeader>
@@ -24,14 +25,14 @@ export function SubjectsTable({ subjects, userRole }: any) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {subjects.map((subject: any) => (
+        {subjects.map((subject) => (
           <TableRow key={subject.id}>
             <TableCell className="font-medium">{subject.code}</TableCell>
             <TableCell>{subject.name}</TableCell>
             <TableCell>{subject.description}</TableCell>
             <TableCell>
-              {subject.teacherSubjects
-                .map((ts: any) => ts.teacher.name)
+              {subject?.teachers
+                ?.map((ts) => ts.name)
                 .join(", ")}
             </TableCell>
             {userRole === "admin" && (

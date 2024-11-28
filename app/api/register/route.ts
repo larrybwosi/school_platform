@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createUser, getUserByEmail } from '@/lib/auth/auth.utils';
-import { insertUserSchema } from '@/lib/db/schema';
 import { z } from 'zod';
 
 const registerSchema = z.object({

@@ -90,6 +90,7 @@ export const getTopStudentsPerGrade = () => {
       const bAvg = Object.values(b.subjects).reduce((sum, { currentGrade }) => sum + currentGrade, 0) / Object.keys(b.subjects).length;
       return bAvg - aAvg;
     });
+    //@ts-ignore
     topStudents[grade] = sortedStudents.slice(0, 3);
   }
   return topStudents;

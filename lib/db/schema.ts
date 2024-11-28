@@ -390,7 +390,7 @@ export const insertTimetableSlotSchema = createInsertSchema(timetableSlots, {
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Start time must be in 24-hour format HH:mm'),
   endTime: z.string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'End time must be in 24-hour format HH:mm')
-    .refine((endTime) => {
+    .refine((endTime,ctx) => {
       const start = ctx.parent.startTime.split(':').map(Number);
       const end = endTime.split(':').map(Number);
       const startMinutes = start[0] * 60 + start[1];

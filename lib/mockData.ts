@@ -1,3 +1,5 @@
+import { role } from "better-auth/plugins/access";
+
 export interface Teacher {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export interface Teacher {
   role: 'gradeTeacher' | 'subjectTeacher' | 'admin';
   grades?: number[];
   subjects: string[];
+  perfomanceIncrease?: string
 }
 
 export interface Student {
@@ -362,8 +365,11 @@ export const mockData = {
   healthConditions: ["Allergies", "Asthma", "Diabetes", "None", "Other"],
   specialNeeds: ["Learning Support", "Physical Support", "Behavioral Support", "None"],
   nationalities: ["American", "British", "Canadian", "Nigerian", "Indian", "Chinese", "Other"],
+  departments: ["English", "Mathematics", "Science", "Social Studies", "Physical Education", "Art", "Music", "History", "Geography", "Computer Science", "Physics", "Chemistry", "Biology", "Other"],
   qualifications: ["Bachelor of Education", "Master of Education", "PhD", "Teaching Certificate","Teaching Diploma","Internship", "Other"],
   streams: ["A", "B", "C", "D"],
+  roles: ["Administrator", "Grade Teacher", "Subject Teacher", "Non-teaching Staff"],
+  days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 }
 
 

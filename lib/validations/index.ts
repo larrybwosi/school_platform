@@ -16,6 +16,7 @@ import {
 import { relations } from 'drizzle-orm';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
+import { grades, staff, students, subjects, timetableSlots, users } from '../db/schema';
 
 // Enhanced Zod validations with improved security and data integrity
 
@@ -153,31 +154,10 @@ export const insertTimetableSlotSchema = createInsertSchema(timetableSlots, {
   startTime: z.string()
     .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'Start time must be in 24-hour format HH:mm'),
   endTime: z.string()
-    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'End time must be in 24-hour format HH:mm')
-    .refine((endTime, ctx) => {
-      const start = ctx.parent.startTime.split(':').map(Number);
-      const end = endTime.split(':').map(Number);
-      const startMinutes = start[0] * 60 + start[1];
-      const endMinutes = end[0] * 60 + end[1];
-      return endMinutes > startMinutes;
-    }, 'End time must be after start time'),
+    .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, 'End time must be in 24-hour format HH:mm'),
   roomNumber: z.string()
     .max(50, 'Room number must be less than 50 characters')
     .optional(),
   status: z.enum(['active', 'inactive', 'cancelled'])
     .default('active')
 });
-
-// Export all new schemas
-export {
-  insertUserSchema,
-  selectUserSchema,
-  insertStudentSchema,
-  selectStudentSchema,
-  insertStaffSchema,
-  selectStaffSchema,
-  insertGradeSchema,
-  selectGradeSchema,
-  insertSubjectSchema,
-  insertTimetableSlotSchema
-};

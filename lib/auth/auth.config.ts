@@ -43,30 +43,5 @@ export const authConfig = {
     },
   },
   providers: [
-    Credentials({
-      async authorize(credentials) {
-        const parsedCredentials = z
-          .object({ email: z.string().email(), password: z.string().min(8) })
-          .safeParse(credentials);
-
-        if (parsedCredentials.success) {
-          const { email, password } = parsedCredentials.data;
-          const user = await getUserByEmail(email);
-          if (!user) return null;
-          
-          const isValid = await verifyPassword(password, user.passwordHash);
-          if (!isValid) return null;
-
-          return {
-            id: user.id.toString(),
-            email: user.email,
-            name: `${user.firstName} ${user.lastName}`.trim(),
-            role: user.roleId,
-          };
-        }
-
-        return null;
-      },
-    }),
   ],
 } satisfies NextAuthConfig;

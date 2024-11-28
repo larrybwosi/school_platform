@@ -111,7 +111,7 @@ export default function TeacherManagement() {
                       teacher.subjects.join(', ')
                     )}
                   </TableCell>
-                  <TableCell>{teacher.performanceIncrease}%</TableCell>
+                  <TableCell>{teacher.perfomanceIncrease}%</TableCell>
                   <TableCell>
                     {editingId === teacher.id ? (
                       <Button onClick={handleSave} size="sm" variant="outline">

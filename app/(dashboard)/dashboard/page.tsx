@@ -74,7 +74,7 @@ export default function EnhancedOverview() {
     }
   }
 
-  const renderMetricCard = (title, value, description, icon, gradientFrom, gradientTo, darkFrom, darkTo) => (
+  const renderMetricCard = (title: string, value: string | number, description: string, icon: React.ReactNode, gradientFrom: string, gradientTo: string, darkFrom: string, darkTo: string) => (
     <motion.div 
       variants={cardVariants} 
       initial="hidden" 

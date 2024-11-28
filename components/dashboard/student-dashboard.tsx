@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, GraduationCap, Calendar } from "lucide-react";
-import { StudentTimetable } from "@/components/dashboard/student-timetable";
+// import { StudentTimetable } from "@/components/dashboard/student-timetable";
 
 export function StudentDashboard({ user }: { user: any }) {
   return (
@@ -45,7 +45,7 @@ export function StudentDashboard({ user }: { user: any }) {
             <CardTitle>Today's Schedule</CardTitle>
           </CardHeader>
           <CardContent>
-            <StudentTimetable />
+            {/* <StudentTimetable /> */}
           </CardContent>
         </Card>
       </div>

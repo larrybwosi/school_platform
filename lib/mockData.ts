@@ -358,7 +358,7 @@ export const mockData = {
     core: ["Mathematics", "English", "Science", "Social Studies", "Physical Education"],
     optional: ["Computer Science", "Art", "Music", "History", "Geography", "Physics", "Chemistry", "Biology"]
   },
-  grades: [ "Grade 9", "Grade 10", "Grade 11", "Grade 12"],
+  grades: [ "Grade 9", "Grade 10", "Grade 11", "Grade 12", "Grade 2"],
   bloodGroups: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
   religions: ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism", "Other", "Prefer not to say"],
   relationships: ["Father", "Mother", "Legal Guardian", "Grandparent", "Uncle", "Aunt", "Other"],

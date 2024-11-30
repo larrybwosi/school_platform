@@ -31,10 +31,20 @@ export async function getStudents({ page, sort, filters }: GetStudentsParams): P
   // Apply sorting
   if (sort) {
     filteredStudents.sort((a, b) => {
-      if (a[sort.key] < b[sort.key]) return sort.direction === 'asc' ? -1 : 1
-      if (a[sort.key] > b[sort.key]) return sort.direction === 'asc' ? 1 : -1
-      return 0
+      const aValue = a[sort.key]!
+      const bValue = b[sort.key]!
+
+      let compareValue = 0
+
+      if (aValue < bValue) {
+        compareValue = -1
+      } else if (aValue > bValue) {
+        compareValue = 1
+      }
+
+      return sort.direction === 'asc' ? compareValue : compareValue * -1
     })
+
   }
 
   // Apply pagination

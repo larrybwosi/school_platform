@@ -1,63 +1,31 @@
 "use client";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
-
-const data = [
-  {
-    name: "Jan",
-    total: 1234,
-  },
-  {
-    name: "Feb",
-    total: 2463,
-  },
-  {
-    name: "Mar",
-    total: 1456,
-  },
-  {
-    name: "Apr",
-    total: 1780,
-  },
-  {
-    name: "May",
-    total: 1890,
-  },
-  {
-    name: "Jun",
-    total: 2390,
-  },
-  {
-    name: "Jul",
-    total: 3490,
-  },
-];
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Activity } from "@/components/dashboard/activity";
 
 export function Overview() {
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
-        <XAxis
-          dataKey="name"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `${value}`}
-        />
-        <Bar
-          dataKey="total"
-          fill="currentColor"
-          radius={[4, 4, 0, 0]}
-          className="fill-primary"
-        />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+      <Card className="col-span-4">
+        <CardHeader>
+          <CardTitle>Recent Activity</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Activity />
+        </CardContent>
+      </Card>
+      
+      <Card className="col-span-3">
+        <CardHeader>
+          <CardTitle>Upcoming Events</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {/* Placeholder for upcoming events */}
+            <p className="text-sm text-muted-foreground">No upcoming events</p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

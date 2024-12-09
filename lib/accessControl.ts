@@ -4,7 +4,7 @@ export function canViewStudent(teacher: Teacher, student: Student): boolean {
   if (teacher.role === 'admin') return true;
   if (teacher.role === 'gradeTeacher' && teacher.grades?.includes(student.grade)) return true;
   if (teacher.role === 'subjectTeacher') {
-    return teacher.subjects.some(subject => subject in student.subjects) && teacher.grades?.includes(student.grade);
+    return teacher.subjects.some(subject => subject in student.subjects) && teacher.grades?.includes(student.grade) || false;
   }
   return false;
 }

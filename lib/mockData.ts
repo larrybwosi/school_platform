@@ -7,7 +7,38 @@ export interface Teacher {
   role: 'gradeTeacher' | 'subjectTeacher' | 'admin';
   grades?: number[];
   subjects: string[];
-  perfomanceIncrease?: string
+  performanceIncrease?: string;
+  department?: Departments;
+}
+
+enum Role {
+  Teacher = 'teacher',
+  Admin = 'admin',
+  Support = 'support',
+  Student = 'student',
+}
+
+enum Departments {
+  Academic = 'Academic',
+  StudentServices = 'Student Services',
+  Library = 'Library',
+  Sports = 'Sports',
+  Health = 'Health',
+  Social = 'Social',
+  StudentAffairs = 'Student Affairs',
+  Store = 'Store',
+  Other = 'Other',
+}
+
+export interface Staff {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+  department?: string;
+  subjects?: string[];
+  grades?: number[];
+  performanceRating?: number;
 }
 
 export interface Student {
@@ -16,7 +47,7 @@ export interface Student {
   email: string;
   avatar?: string;
   grade: number;
-  stream:string,
+  stream: string;
   subjects: {
     [key: string]: {
       currentGrade: number;
@@ -42,6 +73,8 @@ export interface Student {
   };
 }
 
+
+
 export interface Subject {
   id: string;
   name: string;
@@ -51,6 +84,70 @@ export interface Subject {
   description?: string;
   teachers?: Teacher[];
 }
+
+export interface Department {
+  id: number;
+  name: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+  subjects: string[];
+  teachers: string[];
+  head: string;
+  assistant: string;
+  budget?: number;
+  location?: string;
+  contactEmail?: string;
+}
+
+
+
+
+export const mockDepartments: Department[] = [
+  {
+    id: 1,
+    name: 'Computer Science',
+    description: 'Department of Computer Science',
+    createdAt: new Date('2022-01-15'),
+    updatedAt: new Date('2022-01-15'),
+    subjects: ['Programming', 'Algorithms', 'Data Structures'],
+    teachers: ['Dr. Alan Turing', 'Prof. Ada Lovelace'],
+    head: 'Dr. Alan Turing',
+    assistant: 'Prof. Ada Lovelace',
+    budget: 1000000,
+    location: 'Building A',
+    contactEmail: 'computerscience@school.edu',
+  },
+  {
+    id: 2,
+    name: 'Mathematics',
+    description: 'Department of Mathematics',
+    createdAt: new Date('2022-02-20'),
+    updatedAt: new Date('2022-02-20'),
+    subjects: ['Calculus', 'Linear Algebra', 'Statistics'],
+    teachers: ['Dr. Pythagoras', 'Prof. Euclid'],
+    head: 'Dr. Pythagoras',
+    assistant: 'Prof. Euclid',
+    budget: 900000,
+    location: 'Building B',
+    contactEmail: 'mathematics@school.edu',
+  },
+  {
+    id: 3,
+    name: 'Physics',
+    description: 'Department of Physics',
+    createdAt: new Date('2022-03-10'),
+    updatedAt: new Date('2022-03-10'),
+    subjects: ['Mechanics', 'Quantum Physics', 'Thermodynamics'],
+    teachers: ['Dr. Albert Einstein', 'Prof. Marie Curie'],
+    head: 'Dr. Albert Einstein',
+    assistant: 'Prof. Marie Curie',
+    budget: 1000000,
+    location: 'Building C',
+    contactEmail: 'physics@school.edu',
+  },
+];
+
 
 export const mockTeachers: Teacher[] = [
   {

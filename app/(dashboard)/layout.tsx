@@ -16,8 +16,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -29,26 +27,7 @@ export default function DashboardLayout({
                 School Management
               </span>
             </a>
-            <DashboardNav />
           </div>
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-              >
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="pr-0">
-              <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
-                <div className="flex flex-col space-y-3">
-                  <DashboardNav setOpen={setOpen} />
-                </div>
-              </ScrollArea>
-            </SheetContent>
-          </Sheet>
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
             <div className="flex items-center space-x-2">
               <ModeToggle />

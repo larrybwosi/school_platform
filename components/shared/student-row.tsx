@@ -18,15 +18,7 @@ import {
   TableCell,
   TableRow,
 } from "@/components/ui/table";
-import { 
-  Edit2, 
-  MoreVertical, 
-  FileText, 
-  Mail, 
-  TrendingUp,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { Edit2, MoreVertical, FileText, Mail, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,23 +28,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { Student, Teacher } from '@/lib/mockData';
 import { canEditGrade, getEditableSubjects } from '@/lib/accessControl';
+import { Staff, Student, Teacher } from "@/lib/mockData";
 
 interface StudentRowProps {
   student: Student;
-  teacher: Teacher;
+  staff: Teacher;
   onEditGrade: (studentId: string, subject: string, newGrade: number) => void;
   viewableSubjects: string[];
 }
 
-export function StudentRow({ student, teacher, onEditGrade, viewableSubjects }: StudentRowProps) {
+function StudentRow({ student, staff, onEditGrade, viewableSubjects }: StudentRowProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
   const [newGrade, setNewGrade] = useState<number | null>(null);
 
-  const editableSubjects = getEditableSubjects(teacher, student);
+  const editableSubjects = getEditableSubjects(staff, student);
 
   const getGradeColor = (grade: number) => {
     if (grade >= 90) return "text-green-600 dark:text-green-400";
@@ -179,7 +171,7 @@ export function StudentRow({ student, teacher, onEditGrade, viewableSubjects }: 
       {isExpanded && (
         <TableRow>
           <TableCell colSpan={6}>
-            <div className="grid grid-cols-2 gap-4 p-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
               <div>
                 <h4 className="font-semibold">Attendance</h4>
                 <p>{student.attendance}%</p>
@@ -232,4 +224,6 @@ export function StudentRow({ student, teacher, onEditGrade, viewableSubjects }: 
     </>
   );
 }
+
+export default StudentRow;
 

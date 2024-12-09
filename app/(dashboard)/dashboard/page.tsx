@@ -108,13 +108,13 @@ export default function EnhancedOverview() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.h1 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500 dark:from-purple-400 dark:to-blue-300"
+          className="text-4xl sm:text-5xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r"
         >
           Institution Performance Dashboard
         </motion.h1>
@@ -125,10 +125,10 @@ export default function EnhancedOverview() {
             `${progression.progression}%`, 
             `From ${progression.previousAverage}% to ${progression.currentAverage}%`, 
             <TrendingUp className="h-7 w-7 opacity-75" />,
-            "from-emerald-400 to-teal-500",
-            "dark:from-emerald-600 dark:to-teal-700",
-            "emerald-600",
-            "teal-700"
+            "from-",
+            "dark:from-",
+            " ",
+            " "
           )}
 
           {renderMetricCard(
@@ -136,10 +136,10 @@ export default function EnhancedOverview() {
             bestSubject.name, 
             `Avg. grade: ${bestSubject.averageGrade}%`, 
             <Award className="h-7 w-7 opacity-75" />,
-            "from-sky-400 to-indigo-500",
-            "dark:from-sky-600 dark:to-indigo-700",
-            "sky-600",
-            "indigo-700"
+            "from-",
+            "dark:from-",
+            "",
+            ""
           )}
 
           {renderMetricCard(
@@ -147,10 +147,10 @@ export default function EnhancedOverview() {
             bestTeacher.name, 
             `Perf. increase: ${bestTeacher.performanceIncrease}%`, 
             <UserCheck className="h-7 w-7 opacity-75" />,
-            "from-pink-400 to-rose-500",
-            "dark:from-pink-600 dark:to-rose-700",
-            "pink-600",
-            "rose-700"
+            "from-",
+            "dark:from-",
+            "",
+            ""
           )}
 
           {renderMetricCard(
@@ -158,10 +158,10 @@ export default function EnhancedOverview() {
             mockStudents.length, 
             "Across all grades", 
             <Users className="h-7 w-7 opacity-75" />,
-            "from-amber-400 to-orange-500",
-            "dark:from-amber-600 dark:to-orange-700",
-            "amber-600",
-            "orange-700"
+            "from-",
+            "dark:from-",
+            "",
+            ""
           )}
         </div>
 
@@ -171,7 +171,7 @@ export default function EnhancedOverview() {
             initial="hidden" 
             animate={controls}
           >
-            <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-2xl border-none rounded-2xl overflow-hidden">
+            <Card className="backdrop-blur-xl shadow-2xl border-none rounded-2xl overflow-hidden">
               <CardHeader className="border-b border-gray-100 dark:border-gray-700 p-6">
                 <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                   Subject Performance
@@ -223,7 +223,7 @@ export default function EnhancedOverview() {
             initial="hidden" 
             animate={controls}
           >
-            <Card className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-2xl border-none rounded-2xl overflow-hidden">
+            <Card className="backdrop-blur-xl shadow-2xl border-none rounded-2xl overflow-hidden">
               <CardHeader className="border-b border-gray-100 dark:border-gray-700 p-6">
                 <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">
                   Student Progression

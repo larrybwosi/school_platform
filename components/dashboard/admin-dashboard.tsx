@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Overview } from "@/components/dashboard/overview";
+import { Overview } from "@/components/dashboard/overview.ds";
 import { RecentActivity } from "@/components/dashboard/recent-activity";
 import { Users, GraduationCap, Calendar, BookOpen } from "lucide-react";
 

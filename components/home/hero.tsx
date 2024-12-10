@@ -1,104 +1,60 @@
-'use client'
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ChevronRightIcon, GraduationCap, StarIcon } from 'lucide-react';
+import { Button } from '../ui/btn';
 
-export default function HeroSection() {
-  // Psychological engagement variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
-      transition: { 
-        delayChildren: 0.3, 
-        staggerChildren: 0.2 
-      } 
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100 
-      }
-    }
-  };
-
+export const Hero = () => {
   return (
-    <motion.section
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden"
-    >
-      {/* Gradient Background with Subtle Animation */}
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-r from-blue-100 via-white to-blue-100 opacity-50 -z-10"
-        initial={{ opacity: 0 }}
-        animate={{ 
-          opacity: 0.5, 
-          backgroundPosition: ['0% 50%', '100% 50%'] 
+    <div className="relative min-h-screen flex items-center">
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-        transition={{ 
-          duration: 10, 
-          repeat: Infinity, 
-          repeatType: "reverse" 
-        }}
-      />
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/80" />
+      </div>
 
-      {/* Blurred Circles for Depth */}
-      <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-300 rounded-full blur-3xl opacity-30 -z-10"></div>
-      <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-300 rounded-full blur-3xl opacity-30 -z-10"></div>
-
-      <div className="container px-6 py-24">
-        <motion.div variants={itemVariants}>
-          <motion.h1 
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6 leading-tight"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 300 }}
+      <div className="container mx-auto px-4 z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl text-white"
+        >
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-5xl md:text-6xl font-bold mb-6"
           >
-            Horizon Academy
+            Shape Your Future with Excellence
           </motion.h1>
-        </motion.div>
-
-        <motion.p 
-          variants={itemVariants}
-          className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto mb-10 font-medium"
-        >
-          Empowering Future Innovators, Scholars, and Global Leaders. Where Exceptional Education Meets Unlimited Potential.
-        </motion.p>
-
-        <motion.div variants={itemVariants}>
-          <Button
-            size="lg"
-            className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full text-xl font-semibold shadow-xl hover:shadow-2xl transition-all"
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-xl md:text-2xl mb-8 text-gray-200"
           >
-            Discover Our Journey
-            <ChevronRightIcon className="ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
-        </motion.div>
+            Discover a world-class education that empowers you to reach your full potential
+            and make a lasting impact on the world.
+          </motion.p>
 
-        {/* Social Proof & Credibility Indicators */}
-        <motion.div 
-          variants={itemVariants}
-          className="mt-16 flex justify-center items-center space-x-8 text-gray-600"
-        >
-          <div className="flex items-center">
-            <StarIcon className="h-6 w-6 text-yellow-500 mr-2" />
-            <span className="text-lg font-semibold">4.9/5 Academic Rating</span>
-          </div>
-          <div className="flex items-center">
-            <GraduationCap className="h-6 w-6 text-green-500 mr-2" />
-            <span className="text-lg font-semibold">95% Graduate Success</span>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="space-x-4"
+          >
+            <Button size="lg">Start Your Journey</Button>
+            <Button variant="outline" size="lg">
+              Explore Programs
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
-    </motion.section>
+    </div>
   );
-}
+};

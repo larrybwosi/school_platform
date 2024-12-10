@@ -90,7 +90,7 @@ const navigationConfig = {
       ]
     },
     {
-      title: "Automation",
+      title: "Finance",
       url: "#",
       icon: Bot,
       items: [

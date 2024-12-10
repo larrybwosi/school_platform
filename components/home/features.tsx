@@ -1,66 +1,77 @@
-'use client'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { GraduationCap, Users, Globe, Award } from 'lucide-react';
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { GraduationCap, Globe, BookOpen } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-
-const keyFeatures = [
+const features = [
   {
-    icon: <GraduationCap size={48} className="text-blue-600" />,
-    title: "Academic Mastery",
-    description: "Pioneering transformative learning strategies that unlock each student's extraordinary potential through personalized educational experiences.",
-    color: "blue"
+    icon: GraduationCap,
+    title: 'World-Class Education',
+    description: 'Access to cutting-edge curriculum and renowned faculty members from around the globe.',
   },
   {
-    icon: <Globe size={48} className="text-green-600" />,
-    title: "Global Citizenship",
-    description: "Cultivating world-ready leaders with comprehensive international programs that develop cross-cultural understanding and global perspectives.",
-    color: "green"
+    icon: Users,
+    title: 'Diverse Community',
+    description: 'Join a vibrant community of learners from over 100 countries, sharing diverse perspectives.',
   },
   {
-    icon: <BookOpen size={48} className="text-purple-600" />,
-    title: "Holistic Growth",
-    description: "Nurturing intellectual, emotional, and personal development through integrated learning approaches that prepare students for lifelong success.",
-    color: "purple"
-  }
-]
+    icon: Globe,
+    title: 'Global Opportunities',
+    description: 'Connect with international partners and access global career opportunities.',
+  },
+  {
+    icon: Award,
+    title: 'Industry Recognition',
+    description: 'Graduate with credentials recognized by leading employers worldwide.',
+  },
+];
 
-export default function KeyFeatures() {
-  const [activeSection, setActiveSection] = useState<number | null>(null)
+export const Features = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
   return (
-    <section className="container mx-auto px-6 py-16">
-      <div className="grid md:grid-cols-3 gap-8">
-        {keyFeatures.map((feature, index) => (
-          <motion.div
-            key={feature.title}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.3, duration: 0.5 }}
-            onHoverStart={() => setActiveSection(index)}
-            onHoverEnd={() => setActiveSection(null)}
-          >
-            <Card className={`h-full transition-all duration-500 ${
-              activeSection === index 
-                ? `bg-${feature.color}-100 scale-105 border-2 border-${feature.color}-300` 
-                : 'bg-white hover:bg-gray-50'
-            }`}>
-              <CardHeader>
-                <div className="mb-6">{feature.icon}</div>
-                <CardTitle className="text-2xl font-bold mb-4 text-gray-900">
-                  {feature.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Why Choose EduHub?
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Experience excellence in education with our comprehensive approach to learning and development.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="text-center p-6 rounded-lg bg-gray-50"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-6">
+                <feature.icon className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
-  )
-}
+  );
+};

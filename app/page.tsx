@@ -1,15 +1,26 @@
-import AboutSections from "@/components/home/about";
-import AchievementHighlights from "@/components/home/archievements";
-import KeyFeatures from "@/components/home/features";
-import HeroSection from "@/components/home/hero";
+'use client';
+import { Header } from '@/components/layout/Header';
+import { Hero } from '@/components/home/Hero';
+import { Features } from '@/components/home/Features';
+import { Programs } from '@/components/home/Programs';
+import { Location } from '@/components/home/Location';
+import { Footer } from '@/components/layout/Footer';
+import AboutSections from '@/components/home/about';
 
-export default function HorizonAcademy() {
+const HomePage = () => {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 relative overflow-hidden">
-      <HeroSection />
-      <KeyFeatures />
-      <AboutSections />
-      <AchievementHighlights />
-    </main>
-  )
-}
+    <div className="min-h-screen">
+      <Header />
+      <main>
+        <Hero />
+        <AboutSections/>
+        <Features />
+        <Programs />
+        <Location />
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default HomePage;

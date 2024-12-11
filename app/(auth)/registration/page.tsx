@@ -168,7 +168,7 @@ export default function RegistrationPage() {
           className="object-cover transition-opacity duration-300"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/40 flex items-center justify-center text-white p-12 transition-colors duration-300">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/40 flex items-center justify-center text-white dark:text-gray-900 p-12 transition-colors duration-300">
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold mb-4">Welcome to Horizon Academy</h1>
             <p className="text-lg opacity-90">

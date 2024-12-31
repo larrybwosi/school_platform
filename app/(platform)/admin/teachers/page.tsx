@@ -143,7 +143,7 @@ export default function AdminPanel() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Teachers</CardTitle>
+            <CardTitle className="text-sm font-semibold">Total Teachers</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -153,7 +153,7 @@ export default function AdminPanel() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Subjects Covered</CardTitle>
+            <CardTitle className="text-sm font-semibold">Subjects Covered</CardTitle>
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -165,7 +165,7 @@ export default function AdminPanel() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Average Performance</CardTitle>
+            <CardTitle className="text-sm font-semibold">Average Performance</CardTitle>
             <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -183,15 +183,15 @@ export default function AdminPanel() {
       <Card>
         <CardHeader>
           <CardTitle>Teacher Management</CardTitle>
-          <CardDescription>Manage your teaching staff</CardDescription>
+          <CardDescription className="font-semibold">Manage your teaching staff</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="space-y-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <TabsList className="grid grid-cols-2 sm:flex overflow-x-auto">
-                <TabsTrigger value="all">All Roles</TabsTrigger>
+                <TabsTrigger className="font-bold" value="all">All Roles</TabsTrigger>
                 {roleData?.roles.map((role) => (
-                  <TabsTrigger key={role} value={role}>{role}</TabsTrigger>
+                  <TabsTrigger className="font-bold" key={role} value={role}>{role}</TabsTrigger>
                 ))}
               </TabsList>
               <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">

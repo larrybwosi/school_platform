@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export function TimetableView({ slots, userRole, userId }: any) {
+export function TimetableView({ slots, userRole, userId, days, timeSlots }: any) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,7 +46,7 @@ export function TimetableView({ slots, userRole, userId }: any) {
             <TabsTrigger value="monthly">Monthly View</TabsTrigger>
           </TabsList>
           <TabsContent value="weekly">
-            <WeeklyView slots={slots} userRole={userRole} userId={userId} />
+            <WeeklyView slots={slots} userRole={userRole} userId={userId} days={days} timeSlots={timeSlots} />
           </TabsContent>
           <TabsContent value="monthly">
             <div className="text-center text-muted-foreground">

@@ -18,14 +18,14 @@ export async function getStudents({ page, sort, filters }: GetStudentsParams): P
   let filteredStudents = mockStudents
 
   // Apply filters
-  if (filters.grade) {
-    filteredStudents = filteredStudents.filter(student => student.grade.toString() === filters.grade)
+  if (filters?.grade) {
+    filteredStudents = filteredStudents.filter(student => student.grade.toString() === filters?.grade)
   }
-  if (filters.stream) {
-    filteredStudents = filteredStudents.filter(student => student.stream === filters.stream)
+  if (filters?.stream) {
+    filteredStudents = filteredStudents.filter(student => student.stream === filters?.stream)
   }
-  if (filters.status) {
-    filteredStudents = filteredStudents.filter(student => student.status === filters.status)
+  if (filters?.status) {
+    filteredStudents = filteredStudents.filter(student => student.status === filters?.status)
   }
 
   // Apply sorting

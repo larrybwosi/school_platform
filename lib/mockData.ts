@@ -64,6 +64,7 @@ export interface Student {
   behavior: string;
   parentContact: string;
   specialNeeds?: string;
+  gender?: string;
   group?: string;
   club?: string;
   performance?: {
@@ -73,6 +74,18 @@ export interface Student {
   };
 }
 
+
+export interface TeacherStudents {
+  id: string;
+  name: string;
+  email: string;
+  department?: string;
+  subjects?: string[];
+  scores?: number[];
+  grade: number[];
+  grades?: number[];
+  performanceRating?: number;
+}
 
 
 export interface Subject {
@@ -247,18 +260,35 @@ export const mockTeachers: Teacher[] = [
   },
 ];
 
+
 export const mockStudents: Student[] = [
   {
     id: "ST001",
     name: "John Smith",
     email: "john.s@school.com",
     avatar: "/avatars/01.png",
-    stream:'A',
+    stream: "A",
     grade: 9,
-    subjects: { 
-      Math: { currentGrade: 92, pastGrades: [90, 88, 94], lastAssessment: { name: "Quiz 3", score: 95, date: "Mar 15, 2024", }, },
-      Science: { currentGrade: 88, pastGrades: [85, 87, 90], lastAssessment: {  name: "Lab Report 2", score: 90, date: "Mar 12, 2024", }, },
-      English: { currentGrade: 85, pastGrades: [82, 84, 86], lastAssessment: { name: "Essay 1", score: 87, date: "Mar 10, 2024", }, },
+    subjects: {
+      Math: {
+        currentGrade: 92,
+        pastGrades: [90, 88, 94],
+        lastAssessment: { name: "Quiz 3", score: 95, date: "Mar 15, 2024" },
+      },
+      Science: {
+        currentGrade: 88,
+        pastGrades: [85, 87, 90],
+        lastAssessment: {
+          name: "Lab Report 2",
+          score: 90,
+          date: "Mar 12, 2024",
+        },
+      },
+      English: {
+        currentGrade: 85,
+        pastGrades: [82, 84, 86],
+        lastAssessment: { name: "Essay 1", score: 87, date: "Mar 10, 2024" },
+      },
     },
     attendance: 98,
     status: "active",
@@ -266,6 +296,7 @@ export const mockStudents: Student[] = [
     parentContact: "parent1@email.com",
     specialNeeds: "None",
     group: "A",
+    gender: "Male",
   },
   {
     id: "ST002",
@@ -273,10 +304,22 @@ export const mockStudents: Student[] = [
     email: "emma.w@school.com",
     avatar: "/avatars/02.png",
     grade: 9,
-    stream:'G',
+    stream: "G",
     subjects: {
-      Math: {currentGrade: 88, pastGrades: [85, 87, 89], lastAssessment: { name: "Mid-term", score: 85, date: "Mar 10, 2024", }, },
-      Science: { currentGrade: 91, pastGrades: [89, 90, 92], lastAssessment: { name: "Lab Report 2", score: 93, date: "Mar 12, 2024", }, },
+      Math: {
+        currentGrade: 88,
+        pastGrades: [85, 87, 89],
+        lastAssessment: { name: "Mid-term", score: 85, date: "Mar 10, 2024" },
+      },
+      Science: {
+        currentGrade: 91,
+        pastGrades: [89, 90, 92],
+        lastAssessment: {
+          name: "Lab Report 2",
+          score: 93,
+          date: "Mar 12, 2024",
+        },
+      },
       English: {
         currentGrade: 90,
         pastGrades: [88, 89, 91],
@@ -292,13 +335,15 @@ export const mockStudents: Student[] = [
     behavior: "Good",
     parentContact: "parent2@email.com",
     group: "B",
+    specialNeeds: "None",
+    gender: "Female",
   },
   {
     id: "ST003",
     name: "Michael Brown",
     email: "michael.b@school.com",
     avatar: "/avatars/03.png",
-    stream:'s',
+    stream: "s",
     grade: 10,
     subjects: {
       Math: {
@@ -335,6 +380,7 @@ export const mockStudents: Student[] = [
     parentContact: "parent3@email.com",
     specialNeeds: "ADHD",
     group: "A",
+    gender: "Male",
   },
   {
     id: "ST004",
@@ -342,17 +388,39 @@ export const mockStudents: Student[] = [
     email: "sophia.l@school.com",
     avatar: "/avatars/04.png",
     grade: 10,
-    stream:'A',
+    stream: "A",
     subjects: {
-      Math: { currentGrade: 95, pastGrades: [93, 94, 96], lastAssessment: { name: "Final Exam", score: 97, date: "Mar 20, 2024" } },
-      Science: { currentGrade: 93, pastGrades: [91, 92, 94], lastAssessment: { name: "Project Presentation", score: 95, date: "Mar 18, 2024" } },
-      English: { currentGrade: 91, pastGrades: [89, 90, 92], lastAssessment: { name: "Research Paper", score: 93, date: "Mar 15, 2024" } },
+      Math: {
+        currentGrade: 95,
+        pastGrades: [93, 94, 96],
+        lastAssessment: { name: "Final Exam", score: 97, date: "Mar 20, 2024" },
+      },
+      Science: {
+        currentGrade: 93,
+        pastGrades: [91, 92, 94],
+        lastAssessment: {
+          name: "Project Presentation",
+          score: 95,
+          date: "Mar 18, 2024",
+        },
+      },
+      English: {
+        currentGrade: 91,
+        pastGrades: [89, 90, 92],
+        lastAssessment: {
+          name: "Research Paper",
+          score: 93,
+          date: "Mar 15, 2024",
+        },
+      },
     },
     attendance: 99,
     status: "active",
     behavior: "Excellent",
     parentContact: "parent4@email.com",
     group: "B",
+    specialNeeds: "None",
+    gender: "Female",
   },
   {
     id: "ST005",
@@ -360,17 +428,39 @@ export const mockStudents: Student[] = [
     email: "oliver.g@school.com",
     avatar: "/avatars/05.png",
     grade: 11,
-    stream:'A',
+    stream: "A",
     subjects: {
-      Math: { currentGrade: 87, pastGrades: [85, 86, 88], lastAssessment: { name: "Quiz 4", score: 89, date: "Mar 22, 2024" } },
-      Science: { currentGrade: 89, pastGrades: [87, 88, 90], lastAssessment: { name: "Lab Experiment", score: 91, date: "Mar 19, 2024" } },
-      English: { currentGrade: 92, pastGrades: [90, 91, 93], lastAssessment: { name: "Poetry Analysis", score: 94, date: "Mar 17, 2024" } },
+      Math: {
+        currentGrade: 87,
+        pastGrades: [85, 86, 88],
+        lastAssessment: { name: "Quiz 4", score: 89, date: "Mar 22, 2024" },
+      },
+      Science: {
+        currentGrade: 89,
+        pastGrades: [87, 88, 90],
+        lastAssessment: {
+          name: "Lab Experiment",
+          score: 91,
+          date: "Mar 19, 2024",
+        },
+      },
+      English: {
+        currentGrade: 92,
+        pastGrades: [90, 91, 93],
+        lastAssessment: {
+          name: "Poetry Analysis",
+          score: 94,
+          date: "Mar 17, 2024",
+        },
+      },
     },
     attendance: 97,
     status: "active",
     behavior: "Very Good",
     parentContact: "parent5@email.com",
     group: "C",
+    specialNeeds: "None",
+    gender: "Male",
   },
   {
     id: "ST006",
@@ -378,17 +468,39 @@ export const mockStudents: Student[] = [
     email: "liam.t@school.com",
     avatar: "/avatars/06.png",
     grade: 11,
-    stream:'A',
+    stream: "A",
     subjects: {
-      Math: { currentGrade: 88, pastGrades: [85, 87, 90], lastAssessment: { name: "Assignment 3", score: 92, date: "Mar 25, 2024" } },
-      Science: { currentGrade: 90, pastGrades: [88, 89, 91], lastAssessment: { name: "Lab Report 3", score: 93, date: "Mar 22, 2024" } },
-      English: { currentGrade: 91, pastGrades: [89, 90, 92], lastAssessment: { name: "Essay 2", score: 94, date: "Mar 20, 2024" } },
+      Math: {
+        currentGrade: 88,
+        pastGrades: [85, 87, 90],
+        lastAssessment: {
+          name: "Assignment 3",
+          score: 92,
+          date: "Mar 25, 2024",
+        },
+      },
+      Science: {
+        currentGrade: 90,
+        pastGrades: [88, 89, 91],
+        lastAssessment: {
+          name: "Lab Report 3",
+          score: 93,
+          date: "Mar 22, 2024",
+        },
+      },
+      English: {
+        currentGrade: 91,
+        pastGrades: [89, 90, 92],
+        lastAssessment: { name: "Essay 2", score: 94, date: "Mar 20, 2024" },
+      },
     },
     attendance: 98,
     status: "active",
     behavior: "Excellent",
     parentContact: "parent6@email.com",
     group: "D",
+    specialNeeds: "None",
+    gender: "Male",
   },
   {
     id: "ST007",
@@ -396,17 +508,35 @@ export const mockStudents: Student[] = [
     email: "emma.w@school.com",
     avatar: "/avatars/02.png",
     grade: 9,
-    stream:'G',
+    stream: "G",
     subjects: {
-      Math: { currentGrade: 88, pastGrades: [85, 87, 89], lastAssessment: { name: "Mid-term", score: 85, date: "Mar 10, 2024" } },
-      Science: { currentGrade: 91, pastGrades: [89, 90, 92], lastAssessment: { name: "Lab Report 2", score: 93, date: "Mar 12, 2024" } },
-      English: { currentGrade: 90, pastGrades: [88, 89, 91], lastAssessment: { name: "Essay 1", score: 92, date: "Mar 10, 2024" } },
+      Math: {
+        currentGrade: 88,
+        pastGrades: [85, 87, 89],
+        lastAssessment: { name: "Mid-term", score: 85, date: "Mar 10, 2024" },
+      },
+      Science: {
+        currentGrade: 91,
+        pastGrades: [89, 90, 92],
+        lastAssessment: {
+          name: "Lab Report 2",
+          score: 93,
+          date: "Mar 12, 2024",
+        },
+      },
+      English: {
+        currentGrade: 90,
+        pastGrades: [88, 89, 91],
+        lastAssessment: { name: "Essay 1", score: 92, date: "Mar 10, 2024" },
+      },
     },
     attendance: 95,
     status: "active",
     behavior: "Good",
     parentContact: "parent2@email.com",
     group: "B",
+    specialNeeds: "None",
+    gender: "Female",
   },
 ];
 

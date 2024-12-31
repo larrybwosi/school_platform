@@ -81,13 +81,13 @@ function StudentRow({ student, onEditStudent }: StudentRowProps) {
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-medium text-sm w-5 ">{student.name}</p>
-              <p className="text-muted-foreground text-sm w-5 overflow-ellipsis">{student.email}</p>
+              <p className="font-bold text-sm">{student.name}</p>
+              <p className="text-muted-foreground text-smoverflow-ellipsis font-semibold">{student.email}</p>
             </div>
           </div>
         </TableCell>
         <TableCell className="hidden md:table-cell">
-          <Badge variant="outline" className="font-medium">
+          <Badge variant="outline" className="font-semibold">
             Grade {student.grade}
           </Badge>
         </TableCell>

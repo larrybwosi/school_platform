@@ -184,7 +184,7 @@ export default function StudentAdminPanel() {
       <Card>
         <CardHeader>
           <CardTitle>Student Records</CardTitle>
-          <CardDescription>Manage and view student information</CardDescription>
+          <CardDescription className="font-bold">Manage and view student information</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="space-y-4">
@@ -250,19 +250,19 @@ export default function StudentAdminPanel() {
                       <TableHeader>
                         <TableRow>
                           <TableHead className="w-[50px] md:hidden"></TableHead>
-                          <TableHead className="cursor-pointer" onClick={() => handleSort('name')}>
+                          <TableHead className="cursor-pointer font-bold" onClick={() => handleSort('name')}>
                             Name {sortConfig.key === 'name' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer" onClick={() => handleSort('grade')}>
+                          <TableHead className="hidden md:table-cell cursor-pointer font-bold" onClick={() => handleSort('grade')}>
                             Grade {sortConfig.key === 'grade' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer" onClick={() => handleSort('stream')}>
+                          <TableHead className="hidden md:table-cell cursor-pointer font-bold" onClick={() => handleSort('stream')}>
                             Stream {sortConfig.key === 'stream' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
                           </TableHead>
-                          <TableHead className="cursor-pointer" onClick={() => handleSort('overallGPA')}>
+                          <TableHead className="cursor-pointer font-bold" onClick={() => handleSort('overallGPA')}>
                             GPA {sortConfig.key === 'overallGPA' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer" onClick={() => handleSort('status')}>
+                          <TableHead className="hidden md:table-cell cursor-pointer font-bold" onClick={() => handleSort('status')}>
                             Status {sortConfig.key === 'status' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
                           </TableHead>
                           <TableHead className="w-[50px]"></TableHead>

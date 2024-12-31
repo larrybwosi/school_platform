@@ -6,53 +6,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Student } from "@/lib/mockData"
+import StudentRow from "../shared/student-row"
 
-const students = [
-  {
-    id: 1,
-    name: "John Doe",
-    grade: 9,
-    subject: "Math",
-    score: 85,
-    gender: "Male",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    grade: 10,
-    subject: "Physics",
-    score: 92,
-    gender: "Female",
-  },
-  {
-    id: 3,
-    name: "Bob Johnson",
-    grade: 9,
-    subject: "Chemistry",
-    score: 78,
-    gender: "Male",
-  },
-  {
-    id: 4,
-    name: "Alice Brown",
-    grade: 11,
-    subject: "Biology",
-    score: 88,
-    gender: "Female",
-  },
-  {
-    id: 5,
-    name: "Charlie Wilson",
-    grade: 10,
-    subject: "Math",
-    score: 95,
-    gender: "Male",
-  },
-]
-
-export function GradesTable({ searchTerm, sortBy, filterGrade }) {
+interface GradesTableProps {
+  students: Student[]
+  searchTerm: string
+  sortBy: string
+  filterGrade: string
+}
+export function GradesTable({
+  students,
+  searchTerm,
+  sortBy,
+  filterGrade,
+}: GradesTableProps) {
   const filteredStudents = students
-    .filter((student) =>
+    ?.filter((student) =>
       student.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .filter((student) =>
@@ -60,14 +30,15 @@ export function GradesTable({ searchTerm, sortBy, filterGrade }) {
     )
     .sort((a, b) => {
       if (sortBy === "name") {
-        return a.name.localeCompare(b.name)
+        return a.name.localeCompare(b.name);
       } else if (sortBy === "grade") {
-        return a.grade - b.grade
+        return a.grade - b.grade;
       } else if (sortBy === "score") {
-        return b.score - a.score
+        return b.score - a.score;
       }
-      return 0
-    })
+      return 0;
+    });
+
 
   return (
     <Table>
@@ -81,16 +52,13 @@ export function GradesTable({ searchTerm, sortBy, filterGrade }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {filteredStudents.map((student) => (
-          <TableRow key={student.id}>
-            <TableCell>{student.name}</TableCell>
-            <TableCell>{student.grade}</TableCell>
-            <TableCell>{student.subject}</TableCell>
-            <TableCell>{student.score}</TableCell>
-            <TableCell>{student.gender}</TableCell>
-          </TableRow>
+        {students.map((student) => (
+          <StudentRow
+            key={student.id}
+            student={student}
+          />
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }

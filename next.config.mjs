@@ -17,6 +17,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'source.unsplash.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'pexels.com',
       },
       {
@@ -28,6 +32,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental:{
+    
+  }
 };
 
 export default withPayload(nextConfig) 

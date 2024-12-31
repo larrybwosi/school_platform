@@ -8,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { days, mockSlots, timeSlots } from "@/lib/mockData";
 
 
 type TimetableSlot = {
@@ -22,10 +21,10 @@ type TimetableSlot = {
   class: { name: string };
 };
 
-export function WeeklyView({ slots, userRole, userId }: { slots: TimetableSlot[]; userRole: string; userId: string }) {
+export function WeeklyView({ slots, days, timeSlots, userRole, userId }: { slots: TimetableSlot[]; userRole: string; userId: string; days:any; timeSlots:any }) {
 
   const getSlotContent = (day: typeof days[number], time: typeof timeSlots[number]) => {
-    const slot = mockSlots.find(
+    const slot = slots.find(
       (s) =>
         s.dayOfWeek === day && s.startTime === time
     );

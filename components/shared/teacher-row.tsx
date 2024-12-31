@@ -86,13 +86,13 @@ function TeacherRow({ teacher, onEditTeacher }: TeacherRowProps) {
         <TableCell>
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10 border-2 border-primary/10">
-              <AvatarFallback className="font-medium">
+              <AvatarFallback className="font-bold">
                 {teacher.name.split(" ").map(n => n[0]).join("")}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-medium">{teacher.name}</p>
-              <p className="text-sm text-muted-foreground">{teacher.email}</p>
+              <p className="font-bold">{teacher.name}</p>
+              <p className="text-sm text-muted-foreground font-semibold">{teacher.email}</p>
             </div>
           </div>
         </TableCell>
@@ -100,7 +100,7 @@ function TeacherRow({ teacher, onEditTeacher }: TeacherRowProps) {
           <Badge 
             variant="outline" 
             className={cn(
-              "font-medium capitalize",
+              "capitalize font-semibold",
               teacher.role === 'admin' && badgeVariants({ variant: "destructive" }),
               teacher.role === 'gradeTeacher' && badgeVariants({ variant: "default" })
             )}
@@ -111,7 +111,7 @@ function TeacherRow({ teacher, onEditTeacher }: TeacherRowProps) {
         <TableCell>
           <div className="flex flex-wrap gap-1">
             {teacher.subjects.map((subject, index) => (
-              <Badge key={index} variant="outline" className="font-medium">
+              <Badge key={index} variant="outline" className="font-semibold">
                 {subject}
               </Badge>
             ))}
@@ -130,21 +130,21 @@ function TeacherRow({ teacher, onEditTeacher }: TeacherRowProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <MoreVertical className="h-4 w-4" />
-                <span className="sr-only">Actions</span>
+                <span className="sr-only font-bold">Actions</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[200px]">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+              <DropdownMenuItem className="font-bold" onClick={() => setIsEditDialogOpen(true)}>
                 <Edit2 className="mr-2 h-4 w-4" />
                 Edit Teacher
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="font-bold">
                 <FileText className="mr-2 h-4 w-4" />
                 View Report
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem className="font-bold">
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Teacher
               </DropdownMenuItem>
@@ -172,7 +172,7 @@ function TeacherRow({ teacher, onEditTeacher }: TeacherRowProps) {
               </div>
               <div>
                 <h4 className="font-semibold">Grades</h4>
-                <p>{teacher.grades ? teacher.grades.join(", ") : "N/A"}</p>
+                <p className="font-bold">{teacher.grades ? teacher.grades.join(", ") : "N/A"}</p>
               </div>
               <div>
                 <h4 className="font-semibold">Performance Increase</h4>

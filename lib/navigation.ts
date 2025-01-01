@@ -59,6 +59,7 @@ const navigationConfig = {
         { title: "Students", url: "/admin/students" },
         { title: "Courses", url: "/admin/courses" },
         { title: "Teachers", url: "/admin/teachers" },
+        { title: "Timetable Management", url: "/admin/timetable-creation" },
         { title: "User Management", url: "/admin/users" },
         { title: "Department Settings", url: "/admin/departments" },
         { title: "System Config", url: "/admin/settings" },

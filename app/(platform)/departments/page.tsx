@@ -1,210 +1,343 @@
 'use client';
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import {
+  Search,
+  Building2,
+  Users,
+  Mail,
+  MapPin,
+  DollarSign,
+  BookOpen,
+  GraduationCap,
+  TrendingUp,
+  ChevronRight,
+  History,
+  BadgeCheck,
+} from "lucide-react";
 
-import { useState, useEffect } from 'react';
-import { List, Grid, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Department, mockDepartments } from '@/lib/mockData';
-import { DepartmentSkeleton } from '@/components/shared/department.skeleton';
-import Link from 'next/link';
-import { AddDepartmentModal } from '@/components/shared/department.add';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-
-export default function DepartmentsPage() {
-  const [departments, setDepartments] = useState<Department[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [view, setView] = useState<'list' | 'grid'>('grid');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setDepartments(mockDepartments);
-      setIsLoading(false);
-    }, 1500);
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
+// Mock data
+const mockDepartments = [
+  {
+    id: 1,
+    name: "Computer Science",
+    description:
+      "Leading department in software development, artificial intelligence, and computer systems engineering. Offering cutting-edge courses in programming, data structures, and machine learning.",
+    createdAt: new Date("2020-01-15"),
+    updatedAt: new Date("2024-01-10"),
+    subjects: [
+      { id: 1, name: "Programming Fundamentals" },
+      { id: 2, name: "Data Structures" },
+      { id: 3, name: "Artificial Intelligence" },
+      { id: 4, name: "Web Development" },
+    ],
+    teachers: [
+      {
+        id: 1,
+        name: "Dr. Alan Turing",
+        specialization: "AI & Machine Learning",
+      },
+      {
+        id: 2,
+        name: "Prof. Ada Lovelace",
+        specialization: "Programming Languages",
+      },
+      {
+        id: 3,
+        name: "Dr. John von Neumann",
+        specialization: "Computer Architecture",
+      },
+    ],
+    head: {
+      id: 1,
+      name: "Dr. Alan Turing",
+      specialization: "AI & Machine Learning",
     },
-  };
+    assistant: {
+      id: 2,
+      name: "Prof. Ada Lovelace",
+      specialization: "Programming Languages",
+    },
+    budget: 500000,
+    location: "Tech Building, Floor 3",
+    contactEmail: "cs.department@university.edu",
+    metrics: {
+      studentCount: 450,
+      researchProjects: 12,
+      publications: 45,
+    },
+  },
+  {
+    id: 2,
+    name: "Physics",
+    description:
+      "Exploring the fundamental laws of the universe through theoretical and experimental physics. Research areas include quantum mechanics, astrophysics, and particle physics.",
+    createdAt: new Date("2019-09-01"),
+    updatedAt: new Date("2024-01-05"),
+    subjects: [
+      { id: 5, name: "Quantum Mechanics" },
+      { id: 6, name: "Astrophysics" },
+      { id: 7, name: "Classical Mechanics" },
+    ],
+    teachers: [
+      { id: 4, name: "Dr. Marie Curie", specialization: "Quantum Physics" },
+      {
+        id: 5,
+        name: "Prof. Richard Feynman",
+        specialization: "Theoretical Physics",
+      },
+    ],
+    head: { id: 4, name: "Dr. Marie Curie", specialization: "Quantum Physics" },
+    assistant: {
+      id: 5,
+      name: "Prof. Richard Feynman",
+      specialization: "Theoretical Physics",
+    },
+    budget: 750000,
+    location: "Science Complex, Wing A",
+    contactEmail: "physics.department@university.edu",
+    metrics: {
+      studentCount: 300,
+      researchProjects: 15,
+      publications: 60,
+    },
+  },
+  {
+    id: 3,
+    name: "Mathematics",
+    description:
+      "Advanced mathematical studies covering algebra, analysis, geometry, and applied mathematics. Strong focus on theoretical foundations and practical applications.",
+    createdAt: new Date("2018-08-15"),
+    updatedAt: new Date("2024-01-08"),
+    subjects: [
+      { id: 8, name: "Abstract Algebra" },
+      { id: 9, name: "Real Analysis" },
+      { id: 10, name: "Topology" },
+    ],
+    teachers: [
+      { id: 6, name: "Dr. Euler Schmidt", specialization: "Abstract Algebra" },
+      { id: 7, name: "Prof. Sophie Germain", specialization: "Number Theory" },
+    ],
+    head: {
+      id: 6,
+      name: "Dr. Euler Schmidt",
+      specialization: "Abstract Algebra",
+    },
+    assistant: {
+      id: 7,
+      name: "Prof. Sophie Germain",
+      specialization: "Number Theory",
+    },
+    budget: 400000,
+    location: "Mathematics Building, Floor 2",
+    contactEmail: "math.department@university.edu",
+    metrics: {
+      studentCount: 250,
+      researchProjects: 8,
+      publications: 35,
+    },
+  },
+];
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
+const DepartmentCard = ({ department }) => {
+  const teacherCount = department.teachers.length;
+  const subjectCount = department.subjects.length;
 
   return (
-    <div className="container mx-auto py-8 space-y-8 px-4 sm:px-6 lg:px-8 min-h-screen">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col sm:flex-row justify-between items-center gap-4"
-      >
-        <h1 className="text-4xl font-bold text-blue-800 dark:text-blue-200">Departments Overview</h1>
-        <AddDepartmentModal />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <Card className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <CardHeader>
-            <CardTitle className="text-2xl text-blue-700 dark:text-blue-300">Department Statistics</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="bg-gradient-to-r from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800 p-6 rounded-xl shadow-md"
-              >
-                <h3 className="font-semibold text-lg text-white">Total Departments</h3>
-                <p className="text-3xl font-bold text-white">{departments.length}</p>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-600 dark:to-green-800 p-6 rounded-xl shadow-md"
-              >
-                <h3 className="font-semibold text-lg text-white">Newest Department</h3>
-                <p className="text-xl text-white">
-                  {departments.length > 0 ? departments[departments.length - 1].name : 'N/A'}
-                </p>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="bg-gradient-to-r from-purple-400 to-purple-600 dark:from-purple-600 dark:to-purple-800 p-6 rounded-xl shadow-md"
-              >
-                <h3 className="font-semibold text-lg text-white">Oldest Department</h3>
-                <p className="text-xl text-white">{departments.length > 0 ? departments[0].name : 'N/A'}</p>
-              </motion.div>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-2xl text-blue-700 dark:text-blue-300">Departments List</CardTitle>
-            <div className="flex space-x-2">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant={view === 'list' ? 'default' : 'outline'}
-                      size="icon"
-                      onClick={() => setView('list')}
-                    >
-                      <List className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>List View</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant={view === 'grid' ? 'default' : 'outline'}
-                      size="icon"
-                      onClick={() => setView('grid')}
-                    >
-                      <Grid className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Grid View</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, index) => (
-                  <DepartmentSkeleton key={index} />
-                ))}
+    <Card className="group hover:shadow-lg transition-all duration-300">
+      <CardHeader>
+        <div className="flex justify-between items-start">
+          <div className="space-y-1">
+            <CardTitle className="text-2xl group-hover:text-primary transition-colors">
+              {department.name}
+            </CardTitle>
+            <CardDescription>
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="w-4 h-4 text-primary" />
+                Led by {department.head.name}
               </div>
-            ) : (
-              <AnimatePresence>
-                <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className={
-                    view === 'grid'
-                      ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
-                      : 'space-y-6'
-                  }
-                >
-                  {departments.map((dept) => (
-                    <Link key={dept.id} href={`/departments/${dept.id}`}>
-                      <motion.div variants={itemVariants}>
-                        <Card className="hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-blue-900">
-                          <CardHeader>
-                            <CardTitle className="text-xl text-blue-700 dark:text-blue-300">{dept.name}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-gray-600 dark:text-gray-300 mb-3">
-                              {dept.description}
-                            </p>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                              Created: {dept.createdAt.toLocaleDateString()}
-                            </p>
-                            <div className="space-y-3">
-                              <div className="flex items-center">
-                                <Info className="h-4 w-4 mr-2 text-blue-500" />
-                                <span className="font-semibold">Head:</span>
-                                <span className="ml-2">{dept.head}</span>
-                              </div>
-                              <div className="flex items-center">
-                                <Info className="h-4 w-4 mr-2 text-green-500" />
-                                <span className="font-semibold">Assistant:</span>
-                                <span className="ml-2">{dept.assistant}</span>
-                              </div>
-                              <div>
-                                <span className="font-semibold">Subjects:</span>
-                                <div className="flex flex-wrap gap-2 mt-2">
-                                  {dept.subjects.map((subject) => (
-                                    <Badge key={subject} variant="secondary" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-                                      {subject}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                              <div>
-                                <span className="font-semibold">Teachers:</span>
-                                <ul className="list-disc list-inside mt-2">
-                                  {dept.teachers.map((teacher) => (
-                                    <li key={teacher} className="text-gray-600 dark:text-gray-300">{teacher}</li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    </Link>
-                  ))}
-                </motion.div>
-              </AnimatePresence>
-            )}
+            </CardDescription>
+          </div>
+          <div className="p-3 rounded-lg bg-primary/10 text-primary">
+            <Building2 className="w-6 h-6" />
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="space-y-6">
+        <p className="text-gray-600 line-clamp-2">{department.description}</p>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <div className="text-sm text-gray-500">Faculty Members</div>
+            <div className="flex items-center gap-2">
+              <Users className="w-5 h-5 text-primary" />
+              <span className="text-lg font-semibold">{teacherCount}</span>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-sm text-gray-500">Subjects Offered</div>
+            <div className="flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-primary" />
+              <span className="text-lg font-semibold">{subjectCount}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <MapPin className="w-4 h-4" />
+            {department.location}
+          </div>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <Mail className="w-4 h-4" />
+            {department.contactEmail}
+          </div>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <DollarSign className="w-4 h-4" />
+            Budget: ${department.budget?.toLocaleString()}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-500">Research Output</span>
+            <span className="text-gray-700">
+              {department.metrics.publications} publications
+            </span>
+          </div>
+          <Progress
+            value={Math.min((department.metrics.publications / 100) * 100, 100)}
+          />
+        </div>
+      </CardContent>
+
+      <CardFooter className="flex justify-between items-center">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <History className="w-4 h-4" />
+          Established {department.createdAt.getFullYear()}
+        </div>
+        <Button
+          variant="ghost"
+          className="group-hover:translate-x-1 transition-transform"
+        >
+          View Details
+          <ChevronRight className="w-4 h-4 ml-1" />
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
+
+const DepartmentsOverview = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Metrics for the overview section
+  const totalTeachers = mockDepartments.reduce(
+    (acc, dept) => acc + dept.teachers.length,
+    0
+  );
+  const totalStudents = mockDepartments.reduce(
+    (acc, dept) => acc + dept.metrics.studentCount,
+    0
+  );
+  const totalBudget = mockDepartments.reduce(
+    (acc, dept) => acc + (dept.budget || 0),
+    0
+  );
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="space-y-2">
+        <h1 className="text-4xl font-bold">Academic Departments</h1>
+        <p className="text-gray-500">
+          Explore our diverse academic departments and their achievements
+        </p>
+      </div>
+
+      {/* Overview Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Total Faculty</p>
+                <p className="text-2xl font-bold">{totalTeachers}</p>
+              </div>
+              <div className="p-3 rounded-lg bg-blue-100 text-blue-600">
+                <GraduationCap className="w-6 h-6" />
+              </div>
+            </div>
           </CardContent>
         </Card>
-      </motion.div>
+
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Total Students</p>
+                <p className="text-2xl font-bold">{totalStudents}</p>
+              </div>
+              <div className="p-3 rounded-lg bg-green-100 text-green-600">
+                <Users className="w-6 h-6" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Total Budget</p>
+                <p className="text-2xl font-bold">
+                  ${(totalBudget / 1000000).toFixed(1)}M
+                </p>
+              </div>
+              <div className="p-3 rounded-lg bg-yellow-100 text-yellow-600">
+                <DollarSign className="w-6 h-6" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search Bar */}
+      <div className="relative max-w-md">
+        <Search className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+        <Input
+          placeholder="Search departments..."
+          className="pl-10"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      {/* Departments Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {mockDepartments
+          .filter(
+            (dept) =>
+              dept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              dept.description.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((department) => (
+            <DepartmentCard key={department.id} department={department} />
+          ))}
+      </div>
     </div>
   );
-}
+};
+
+export default DepartmentsOverview;

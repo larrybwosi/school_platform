@@ -46,13 +46,13 @@ export function ViewReportComponent({
   const [activeTab, setActiveTab] = useState("academic");
 
   const canViewPersonalInfo =
-    currentUser.role === "admin" ||
-    (currentUser.role === "subjectTeacher" &&
-      currentUser.subject === "Counseling");
+    currentUser?.role === "admin" ||
+    (currentUser?.role === "subjectTeacher" &&
+      currentUser?.subject === "Counseling");
   const canViewMedicalInfo =
-    currentUser.role === "admin" ||
-    (currentUser.role === "subjectTeacher" &&
-      currentUser.subject === "School Nurse");
+    currentUser?.role === "admin" ||
+    (currentUser?.role === "subjectTeacher" &&
+      currentUser?.subject === "School Nurse");
 
   const getGradeColor = (grade: number) => {
     if (grade >= 90) return "text-green-600 dark:text-green-400";

@@ -1,7 +1,4 @@
 "use client";
-
-import { User } from "next-auth";
-import { signOut } from "next-auth/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "better-auth";
 
 interface UserNavProps {
   user: Pick<User, "name" | "image" | "email">;

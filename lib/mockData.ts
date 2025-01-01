@@ -1,34 +1,42 @@
-import { role } from "better-auth/plugins/access";
-
 export interface Teacher {
   id: string;
   name: string;
   email: string;
   role: 'gradeTeacher' | 'subjectTeacher' | 'admin';
   grades?: number[];
-  subjects: string[];
+  subjects: Subject[];
   performanceIncrease?: string;
   department?: Departments;
 }
 
+export interface Subject {
+  id: string;
+  name: string;
+  code: string;
+  averageGrade: number;
+  isOptional: boolean;
+  description?: string;
+  teachers?: Teacher[];
+}
+
+enum Departments {
+  Academic = "Academic",
+  StudentServices = "Student Services",
+  Library = "Library",
+  Sports = "Sports",
+  Health = "Health",
+  Social = "Social",
+  StudentAffairs = "Student Affairs",
+  Store = "Store",
+  Other = "Other",
+}
+
 enum Role {
-  Teacher = 'teacher',
   Admin = 'admin',
   Support = 'support',
   Student = 'student',
 }
 
-enum Departments {
-  Academic = 'Academic',
-  StudentServices = 'Student Services',
-  Library = 'Library',
-  Sports = 'Sports',
-  Health = 'Health',
-  Social = 'Social',
-  StudentAffairs = 'Student Affairs',
-  Store = 'Store',
-  Other = 'Other',
-}
 
 export interface Staff {
   id: string;
@@ -36,7 +44,6 @@ export interface Staff {
   email: string;
   role: Role;
   department?: string;
-  subjects?: string[];
   grades?: number[];
   performanceRating?: number;
 }
@@ -88,26 +95,16 @@ export interface TeacherStudents {
 }
 
 
-export interface Subject {
-  id: string;
-  name: string;
-  code: string;
-  averageGrade: number;
-  isOptional: boolean;
-  description?: string;
-  teachers?: Teacher[];
-}
-
 export interface Department {
   id: number;
   name: string;
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  subjects: string[];
-  teachers: string[];
-  head: string;
-  assistant: string;
+  subjects: Subject[];
+  teachers: Teacher[];
+  head: Teacher;
+  assistant: Teacher;
   budget?: number;
   location?: string;
   contactEmail?: string;

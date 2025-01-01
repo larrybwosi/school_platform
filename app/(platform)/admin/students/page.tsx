@@ -22,8 +22,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, Upload, Search, Users, BookOpen, GraduationCap, ArrowUpDown } from 'lucide-react';
-import StudentRow from "@/components/shared/admin.student";
 import { mockStudents, Student } from "@/lib/mockData";
+import { StudentRow } from "@/components/shared/StudentRow";
 
 type SortConfig = {
   key: keyof Student | 'overallGPA';
@@ -37,6 +37,30 @@ export default function StudentAdminPanel() {
   const [searchQuery, setSearchQuery] = useState("");
   const [groupBy, setGroupBy] = useState<'none' | 'grade' | 'stream' | 'status'>('none');
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'name', direction: 'asc' });
+
+  const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+  const [showSelectionCheckbox, setShowSelectionCheckbox] =useState(false)
+
+  const teacher = {
+    id: "1",
+    name: "John Doe",
+    email: "jdoe@me.com",
+    role: "admin",
+    grades: [9, 10, 11, 12],
+    subjects: [
+      { id: "1", name: "Mathematics" },
+      { id: "2", name: "Science" },
+      { id: "3", name: "English" },
+    ],
+  };
+
+  const handleToggleSelection = (studentId: string) => {
+    setSelectedStudents((prev) =>
+      prev.includes(studentId)
+        ? prev.filter((id) => id !== studentId)
+        : [...prev, studentId]
+    );
+  };
 
   const { data: gradeData, isLoading: gradeLoading, error: gradeError } = useQuery({
     queryKey: ["gradeData"],
@@ -147,12 +171,16 @@ export default function StudentAdminPanel() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Students
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{mockStudents.length}</div>
-            <p className="text-xs text-muted-foreground">Across all grades and streams</p>
+            <p className="text-xs text-muted-foreground">
+              Across all grades and streams
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -162,21 +190,34 @@ export default function StudentAdminPanel() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {(mockStudents.reduce((sum, student) => sum + (student.performance?.overallGPA || 0), 0) / mockStudents.length).toFixed(2)}
+              {(
+                mockStudents.reduce(
+                  (sum, student) =>
+                    sum + (student.performance?.overallGPA || 0),
+                  0
+                ) / mockStudents.length
+              ).toFixed(2)}
             </div>
             <p className="text-xs text-muted-foreground">Overall GPA</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Active Students</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Active Students
+            </CardTitle>
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {mockStudents.filter(student => student.status === 'active').length}
+              {
+                mockStudents.filter((student) => student.status === "active")
+                  .length
+              }
             </div>
-            <p className="text-xs text-muted-foreground">Currently active students</p>
+            <p className="text-xs text-muted-foreground">
+              Currently active students
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -184,7 +225,9 @@ export default function StudentAdminPanel() {
       <Card>
         <CardHeader>
           <CardTitle>Student Records</CardTitle>
-          <CardDescription className="font-bold">Manage and view student information</CardDescription>
+          <CardDescription className="font-bold">
+            Manage and view student information
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="space-y-4">
@@ -192,7 +235,10 @@ export default function StudentAdminPanel() {
               <TabsList className="grid grid-cols-2 sm:flex overflow-x-auto">
                 <TabsTrigger value="all">All Grades</TabsTrigger>
                 {gradeData?.grades.map((grade) => (
-                  <TabsTrigger key={grade} value={grade.toString()}>{`Grade ${grade}`}</TabsTrigger>
+                  <TabsTrigger
+                    key={grade}
+                    value={grade.toString()}
+                  >{`Grade ${grade}`}</TabsTrigger>
                 ))}
               </TabsList>
               <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
@@ -212,22 +258,35 @@ export default function StudentAdminPanel() {
                   <SelectContent>
                     <SelectItem value="all">All Grades</SelectItem>
                     {gradeData?.grades.map((grade) => (
-                      <SelectItem key={grade} value={grade.toString()}>{`Grade ${grade}`}</SelectItem>
+                      <SelectItem
+                        key={grade}
+                        value={grade.toString()}
+                      >{`Grade ${grade}`}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={selectedStream} onValueChange={setSelectedStream}>
+                <Select
+                  value={selectedStream}
+                  onValueChange={setSelectedStream}
+                >
                   <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Select stream" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Streams</SelectItem>
                     {streamData?.streams.map((stream) => (
-                      <SelectItem key={stream} value={stream}>{stream}</SelectItem>
+                      <SelectItem key={stream} value={stream}>
+                        {stream}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={groupBy} onValueChange={(value: 'none' | 'grade' | 'stream' | 'status') => setGroupBy(value)}>
+                <Select
+                  value={groupBy}
+                  onValueChange={(
+                    value: "none" | "grade" | "stream" | "status"
+                  ) => setGroupBy(value)}
+                >
                   <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Group by" />
                   </SelectTrigger>
@@ -250,20 +309,50 @@ export default function StudentAdminPanel() {
                       <TableHeader>
                         <TableRow>
                           <TableHead className="w-[50px] md:hidden"></TableHead>
-                          <TableHead className="cursor-pointer font-bold" onClick={() => handleSort('name')}>
-                            Name {sortConfig.key === 'name' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="cursor-pointer font-bold"
+                            onClick={() => handleSort("name")}
+                          >
+                            Name{" "}
+                            {sortConfig.key === "name" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer font-bold" onClick={() => handleSort('grade')}>
-                            Grade {sortConfig.key === 'grade' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="hidden md:table-cell cursor-pointer font-bold"
+                            onClick={() => handleSort("grade")}
+                          >
+                            Grade{" "}
+                            {sortConfig.key === "grade" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer font-bold" onClick={() => handleSort('stream')}>
-                            Stream {sortConfig.key === 'stream' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="hidden md:table-cell cursor-pointer font-bold"
+                            onClick={() => handleSort("stream")}
+                          >
+                            Stream{" "}
+                            {sortConfig.key === "stream" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="cursor-pointer font-bold" onClick={() => handleSort('overallGPA')}>
-                            GPA {sortConfig.key === 'overallGPA' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="cursor-pointer font-bold"
+                            onClick={() => handleSort("overallGPA")}
+                          >
+                            GPA{" "}
+                            {sortConfig.key === "overallGPA" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer font-bold" onClick={() => handleSort('status')}>
-                            Status {sortConfig.key === 'status' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="hidden md:table-cell cursor-pointer font-bold"
+                            onClick={() => handleSort("status")}
+                          >
+                            Status{" "}
+                            {sortConfig.key === "status" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
                           <TableHead className="w-[50px]"></TableHead>
                         </TableRow>
@@ -274,6 +363,20 @@ export default function StudentAdminPanel() {
                             key={student.id}
                             student={student}
                             onEditStudent={handleEditStudent}
+                            teacher={teacher}
+                            onToggleSelection={handleToggleSelection}
+                            isSelected={selectedStudents.includes(student.id)}
+                            showSelectionCheckbox={showSelectionCheckbox}
+                            colorScheme="default"
+                            editableSubjects={
+                              teacher?.subjects?.map(
+                                (subject) => subject.name
+                              ) || []
+                            }
+                            canEditGrades={
+                              teacher?.role === "admin" ||
+                              teacher?.role === "subjectTeacher"
+                            }
                           />
                         ))}
                       </TableBody>

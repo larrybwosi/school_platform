@@ -5,22 +5,18 @@ import { BookCatalog } from '@/components/book-catalog'
 import { LibraryInfo } from '@/components/library-info'
 import { ThemeProvider } from '@/components/theme-provider'
 
-export type SearchParams = {
-  page?: string;
-  search?: string;
-  orderBy?: string;
-};
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+ 
+export default async function LibraryPage(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams;
 
-export default async function LibraryPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  const currentPage = Number( await searchParams?.page) || 1;
-  const searchTerm = (await searchParams?.search) || "";
-  const orderBy = (await searchParams?.orderBy) || "title";
+  const currentPage = Number(searchParams?.page) || 1;
+  const searchTerm =
+    typeof searchParams.search === "string" ? searchParams.search : "";
+  const orderBy =
+    typeof searchParams.search === "string" ? searchParams.search : "title";
   const pageSize = 30;
-  
+
   const { books, pagination } = getBooks(currentPage, pageSize, orderBy);
   const filteredBooks = books.filter(
     (book) =>
@@ -34,9 +30,9 @@ export default async function LibraryPage({
         <LibraryHero />
         <div className="container mx-auto px-4 py-8">
           <FeaturedBooks books={books.slice(0, 4)} />
-          <BookCatalog 
-            books={filteredBooks} 
-            searchTerm={searchTerm} 
+          <BookCatalog
+            books={filteredBooks}
+            searchTerm={searchTerm}
             orderBy={orderBy}
             pagination={pagination}
           />

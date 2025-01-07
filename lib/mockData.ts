@@ -9,6 +9,39 @@ export interface Teacher {
   department?: Departments;
 }
 
+export interface Student {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  grade: number;
+  stream: string;
+  subjects: {
+    [key: string]: {
+      currentGrade: number;
+      pastGrades: number[];
+      lastAssessment: {
+        name: string;
+        score: number;
+        date: string;
+      };
+    };
+  };
+  attendance: number;
+  status: "active" | "inactive" | "suspended";
+  behavior: string;
+  parentContact: string;
+  specialNeeds?: string;
+  gender?: string;
+  group?: string;
+  club?: string;
+  performance?: {
+    overallGPA: number;
+    semesterCredits: number;
+    extracurriculars: string[];
+  };
+}
+
 export interface Subject {
   id: string;
   name: string;
@@ -46,39 +79,6 @@ export interface Staff {
   department?: string;
   grades?: number[];
   performanceRating?: number;
-}
-
-export interface Student {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  grade: number;
-  stream: string;
-  subjects: {
-    [key: string]: {
-      currentGrade: number;
-      pastGrades: number[];
-      lastAssessment: {
-        name: string;
-        score: number;
-        date: string;
-      };
-    };
-  };
-  attendance: number;
-  status: 'active' | 'inactive' | 'suspended';
-  behavior: string;
-  parentContact: string;
-  specialNeeds?: string;
-  gender?: string;
-  group?: string;
-  club?: string;
-  performance?: {
-    overallGPA: number;
-    semesterCredits: number;
-    extracurriculars: string[];
-  };
 }
 
 
@@ -614,6 +614,7 @@ export type TimetableSlot = {
   };
   class: { name: string };
 };
+
 export const mockSlots: TimetableSlot[] = [
   { dayOfWeek: "Monday", startTime: "08:00", endTime: "09:00", teacherSubject: { teacher: mockTeachers[0], subject: { name: "Math" } }, class: { name: "Class A" } },
   { dayOfWeek: "Monday", startTime: "09:00", endTime: "10:00", teacherSubject: { teacher: mockTeachers[1], subject: { name: "English" } }, class: { name: "Class B" } },

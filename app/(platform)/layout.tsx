@@ -36,7 +36,7 @@ export default async function PortalLayout({
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
                   <BreadcrumbItem>
-                    <BreadcrumbPage>Universal Institutoin</BreadcrumbPage>
+                    <BreadcrumbPage>Universal Institution</BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>

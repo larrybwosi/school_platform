@@ -83,7 +83,7 @@ const navigationConfig = {
     },
     {
       title: "Clubs",
-      url: "#",
+      url: "/clubs",
       icon: Users,
       items: [
         { title: "View Clubs", url: "/clubs" },

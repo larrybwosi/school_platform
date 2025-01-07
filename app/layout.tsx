@@ -5,7 +5,7 @@ import './globals.css';
 import { Providers } from '@/lib/providers';
 import { createMetadata } from '@/lib/metadata';
 
-const inter = Archivo({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = createMetadata({
 	title: {

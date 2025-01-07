@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,34 +9,42 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(uuid()) 
-  name           String?
-  email          String?  @unique
-  emailVerified  Boolean?
-  image          String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  role           String?  @default("tenant")
-  accounts       Account[]
-  sessions       Session[]
+  id            String    @id @default(uuid())
+  name          String?
+  email         String?   @unique
+  emailVerified Boolean?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          String?   @default("tenant")
+  accounts      Account[]
+  sessions      Session[]
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+
+  @@map("user")
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  token     String
-  expiresAt DateTime
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  token          String
+  expiresAt      DateTime
+  ipAddress      String?
+  userAgent      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  impersonatedBy String?
+
+  @@map("session")
 }
 
 model Account {
-  id                    String   @id @default(uuid())
+  id                    String    @id @default(uuid())
   userId                String
-  user                  User     @relation(fields: [userId], references: [id])
+  user                  User      @relation(fields: [userId], references: [id])
   accountId             String
   providerId            String
   accessToken           String?
@@ -44,59 +53,65 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  idToken               String?
+
+  @@map("account")
 }
 
 model Verification {
-  id        String   @id @default(uuid())
+  id         String   @id @default(uuid())
   identifier String
-  value     String
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
 }
 
 model Book {
-  id                  Int                 @id @default(autoincrement())
+  id                  Int                  @id @default(autoincrement())
   title               String
   author              String
-  isbn                String              @unique
+  isbn                String               @unique
   category            String
   quantity            Int
   subjectId           Int?
-  subject             Subject?            @relation(fields: [subjectId], references: [id])
+  subject             Subject?             @relation(fields: [subjectId], references: [id])
   borrowings          Borrowing[]
   textbookAssignments TextbookAssignment[]
-  mostBorrowedIn      LibrarySummary[]   @relation("BookLibrarySummary")
+  mostBorrowedIn      LibrarySummary[]     @relation("BookLibrarySummary")
   mostBorrowedStats   MostBorrowedBook[]
 }
+
 model Borrowing {
-  id            Int      @id @default(autoincrement())
-  bookId        Int
-  book          Book     @relation(fields: [bookId], references: [id])
-  borrowerId    Int
-  borrowerType  String
-  borrowDate    DateTime @db.Date
-  dueDate       DateTime @db.Date
-  returnDate    DateTime? @db.Date
-  status        String
-  borrower      Student? @relation(fields: [borrowerId], references: [id])
+  id           Int       @id @default(autoincrement())
+  bookId       Int
+  book         Book      @relation(fields: [bookId], references: [id])
+  borrowerId   Int
+  borrowerType String
+  borrowDate   DateTime  @db.Date
+  dueDate      DateTime  @db.Date
+  returnDate   DateTime? @db.Date
+  status       String
+  borrower     Student?  @relation(fields: [borrowerId], references: [id])
 }
 
 model Club {
-  id                Int      @id @default(autoincrement())
+  id                Int          @id @default(autoincrement())
   name              String
   description       String?
   clubTeacherId     Int
-  clubTeacher       Teacher  @relation(fields: [clubTeacherId], references: [id])
+  clubTeacher       Teacher      @relation(fields: [clubTeacherId], references: [id])
   clubPrefectId     Int?
-  clubPrefect       Student? @relation("ClubPrefect", fields: [clubPrefectId], references: [id])
+  clubPrefect       Student?     @relation("ClubPrefect", fields: [clubPrefectId], references: [id])
   secretaryId       Int?
-  secretary         Student? @relation("Secretary", fields: [secretaryId], references: [id])
+  secretary         Student?     @relation("Secretary", fields: [secretaryId], references: [id])
   members           ClubMember[]
-  activeProjects    Project[] @relation("ActiveProjects")
-  completedProjects Project[] @relation("CompletedProjects")
+  activeProjects    Project[]    @relation("ActiveProjects")
+  completedProjects Project[]    @relation("CompletedProjects")
 }
 
 model ClubMember {
@@ -120,54 +135,54 @@ model ExamResult {
 }
 
 model Grade {
-  id                       Int              @id @default(autoincrement())
-  level                    Int?
-  streams                  Stream[]
-  students                 Student[]
-  teachers                 Teacher[]
-  gradeWithMostBorrowings  LibrarySummary[]
+  id                      Int              @id @default(autoincrement())
+  level                   Int?
+  streams                 Stream[]
+  students                Student[]
+  teachers                Teacher[]
+  gradeWithMostBorrowings LibrarySummary[]
 }
 
 model LibraryRole {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   role       String
   personId   Int
   personType String
-  startDate  DateTime @db.Date
+  startDate  DateTime  @db.Date
   endDate    DateTime? @db.Date
-  teacher    Teacher? @relation(fields: [personId], references: [id])
+  teacher    Teacher?  @relation(fields: [personId], references: [id])
 }
 
 model LibrarySummary {
-  id                         Int              @id @default(autoincrement())
-  year                       Int
-  totalBorrowings            Int
-  mostBorrowedBooks          MostBorrowedBook[]
-  gradeWithMostBorrowingsId  Int?
-  gradeWithMostBorrowings    Grade?           @relation(fields: [gradeWithMostBorrowingsId], references: [id])
-  totalOverdueBooks          Int
-  books                      Book[]           @relation("BookLibrarySummary")
+  id                        Int                @id @default(autoincrement())
+  year                      Int
+  totalBorrowings           Int
+  mostBorrowedBooks         MostBorrowedBook[]
+  gradeWithMostBorrowingsId Int?
+  gradeWithMostBorrowings   Grade?             @relation(fields: [gradeWithMostBorrowingsId], references: [id])
+  totalOverdueBooks         Int
+  books                     Book[]             @relation("BookLibrarySummary")
 }
 
 model MostBorrowedBook {
-  id               Int              @id @default(autoincrement())
+  id               Int            @id @default(autoincrement())
   librarySummaryId Int
-  librarySummary   LibrarySummary   @relation(fields: [librarySummaryId], references: [id])
+  librarySummary   LibrarySummary @relation(fields: [librarySummaryId], references: [id])
   bookId           Int?
-  book             Book?            @relation(fields: [bookId], references: [id])
+  book             Book?          @relation(fields: [bookId], references: [id])
   borrowCount      Int?
 }
 
 model Project {
-  id              Int      @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   name            String
   description     String?
   clubId          Int
-  club            Club     @relation("ActiveProjects", fields: [clubId], references: [id])
+  club            Club      @relation("ActiveProjects", fields: [clubId], references: [id])
   completedClubId Int?
-  completedClub   Club?    @relation("CompletedProjects", fields: [completedClubId], references: [id])
+  completedClub   Club?     @relation("CompletedProjects", fields: [completedClubId], references: [id])
   headId          Int?
-  head            Student? @relation(fields: [headId], references: [id])
+  head            Student?  @relation(fields: [headId], references: [id])
   startDate       DateTime? @db.Date
   dueDate         DateTime? @db.Date
   status          String
@@ -176,11 +191,11 @@ model Project {
 }
 
 model Student {
-  id                     Int              @id @default(autoincrement())
+  id                     Int                  @id @default(autoincrement())
   firstName              String?
   lastName               String?
-  email                  String?          @unique
-  dateOfBirth            DateTime?        @db.Date
+  email                  String?              @unique
+  dateOfBirth            DateTime?            @db.Date
   gender                 String?
   location               String?
   identificationNumber   String?
@@ -192,16 +207,16 @@ model Student {
   healthCondition        String?
   allergies              String[]
   gradeId                Int?
-  grade                  Grade?           @relation(fields: [gradeId], references: [id])
+  grade                  Grade?               @relation(fields: [gradeId], references: [id])
   streamId               Int?
-  stream                 Stream?          @relation(fields: [streamId], references: [id])
+  stream                 Stream?              @relation(fields: [streamId], references: [id])
   academicYear           String?
   subjects               StudentSubject[]
   overallGPA             Float?
   performanceHistory     Json[]
   borrowings             Borrowing[]
-  clubPrefectIn          Club[]           @relation("ClubPrefect")
-  secretaryIn            Club[]           @relation("Secretary")
+  clubPrefectIn          Club[]               @relation("ClubPrefect")
+  secretaryIn            Club[]               @relation("Secretary")
   clubMembers            ClubMember[]
   projectHeads           Project[]
   textbookAssignments    TextbookAssignment[]
@@ -209,55 +224,56 @@ model Student {
 }
 
 model StudentSubject {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   studentId Int
-  student   Student  @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id])
   subjectId Int
-  subject   Subject  @relation(fields: [subjectId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id])
   grade     Int?
 }
 
 model Stream {
-  id                Int              @id @default(autoincrement())
-  name              String?
-  gradeId           Int?
-  grade             Grade?           @relation(fields: [gradeId], references: [id])
-  students          Student[]
-  teachers          Teacher[]
-  subjectPerformance Subject[]       @relation("StreamSubjectPerformance")
+  id                 Int       @id @default(autoincrement())
+  name               String?
+  gradeId            Int?
+  grade              Grade?    @relation(fields: [gradeId], references: [id])
+  students           Student[]
+  teachers           Teacher[]
+  subjectPerformance Subject[] @relation("StreamSubjectPerformance")
 }
 
 model Subject {
-  id                     Int                @id @default(autoincrement())
-  name                   String?
-  code                   String?
-  description            String?
-  overallAverageScore    Float?
-  streamPerformance      Json[]
-  books                  Book[]
-  textbookAssignments    TextbookAssignment[]
-  studentSubjects        StudentSubject[]
-  examResults            ExamResult[]
-  teachers               Teacher[]
-  subjectConfigsCompulsory SubjectConfig[] @relation("CompulsorySubjects")
-  subjectConfigsOptional   SubjectConfig[] @relation("OptionalSubjects")
-  streams                Stream[]          @relation("StreamSubjectPerformance")
+  id                       Int                  @id @default(autoincrement())
+  name                     String?
+  code                     String?
+  description              String?
+  overallAverageScore      Float?
+  streamPerformance        Json[]
+  books                    Book[]
+  textbookAssignments      TextbookAssignment[]
+  studentSubjects          StudentSubject[]
+  examResults              ExamResult[]
+  teachers                 Teacher[]
+  subjectConfigsCompulsory SubjectConfig[]      @relation("CompulsorySubjects")
+  subjectConfigsOptional   SubjectConfig[]      @relation("OptionalSubjects")
+  streams                  Stream[]             @relation("StreamSubjectPerformance")
 }
+
 model SubjectConfig {
-  id                  Int        @id @default(autoincrement())
+  id                  Int       @id @default(autoincrement())
   gradeLevel          String?
-  compulsorySubjects  Subject[]  @relation("CompulsorySubjects")
-  optionalSubjects    Subject[]  @relation("OptionalSubjects")
+  compulsorySubjects  Subject[] @relation("CompulsorySubjects")
+  optionalSubjects    Subject[] @relation("OptionalSubjects")
   minOptionalSubjects Int?
   maxOptionalSubjects Int?
 }
 
 model Teacher {
-  id                     Int              @id @default(autoincrement())
+  id                     Int                  @id @default(autoincrement())
   firstName              String?
   lastName               String?
-  email                  String?          @unique
-  dateOfBirth            DateTime?        @db.Date
+  email                  String?              @unique
+  dateOfBirth            DateTime?            @db.Date
   gender                 String?
   location               String?
   identificationNumber   String?
@@ -280,23 +296,23 @@ model Teacher {
 }
 
 model TextbookAssignment {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   studentId      Int
-  student        Student  @relation(fields: [studentId], references: [id])
+  student        Student   @relation(fields: [studentId], references: [id])
   subjectId      Int
-  subject        Subject  @relation(fields: [subjectId], references: [id])
+  subject        Subject   @relation(fields: [subjectId], references: [id])
   textbookId     Int
-  textbook       Book     @relation(fields: [textbookId], references: [id])
+  textbook       Book      @relation(fields: [textbookId], references: [id])
   assignedById   Int
-  assignedBy     Teacher  @relation(fields: [assignedById], references: [id])
-  assignmentDate DateTime @db.Date
+  assignedBy     Teacher   @relation(fields: [assignedById], references: [id])
+  assignmentDate DateTime  @db.Date
   academicYear   String
   returnDate     DateTime? @db.Date
   status         String
 }
 
 model Exam {
-  id           Int         @id @default(autoincrement())
-  name         String?
-  examResults  ExamResult[]
+  id          Int          @id @default(autoincrement())
+  name        String?
+  examResults ExamResult[]
 }

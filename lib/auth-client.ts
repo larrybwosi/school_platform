@@ -9,32 +9,32 @@ import {
 } from "better-auth/client/plugins";
 
 export const client = createAuthClient({
-	plugins: [
-		passkeyClient(),
-		adminClient(),
-		multiSessionClient(),
-		usernameClient(),
+  plugins: [
+    passkeyClient(),
+    adminClient(),
+    multiSessionClient(),
+    usernameClient(),
     magicLinkClient(),
-		organizationClient(),
-	],
-	fetchOptions: {
-		onError(e) {
-			console.error(e);
-			if (e.error.status === 429) {
-				console.error("Too many requests. Please try again later.");
-			}
-		},
-	},
+    organizationClient(),
+  ],
+  fetchOptions: {
+    onError(e) {
+      console.error(e);
+      if (e.error.status === 429) {
+        console.error("Too many requests. Please try again later.");
+      }
+    },
+  },
 });
 
 export const {
-	signUp,
-	signIn,
-	signOut,
-	useSession,
-	organization,
-	useListOrganizations,
-	useActiveOrganization,
+  signUp,
+  signIn,
+  signOut,
+  useSession,
+  organization,
+  useListOrganizations,
+  useActiveOrganization,
 } = client;
 
  

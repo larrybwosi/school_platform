@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Calendar } from "lucide-react";
 
 const timetableData = [
   { day: "Monday", periods: ["Math", "Physics", "Chemistry", "English", "P.E."] },
@@ -24,36 +25,39 @@ const timetableData = [
 
 export function Timetable() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Weekly Timetable</CardTitle>
-        <CardDescription>Your class schedule for the week</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Day</TableHead>
-                {[1, 2, 3, 4, 5].map((period) => (
-                  <TableHead key={period}>Period {period}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {timetableData.map((day) => (
-                <TableRow key={day.day}>
-                  <TableCell className="font-medium">{day.day}</TableCell>
-                  {day.periods.map((subject, index) => (
-                    <TableCell key={index}>{subject}</TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
-  )
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Calendar className="h-5 w-5" />
+            <span>Weekly Schedule</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-5 gap-4">
+            {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map(
+              (day) => (
+                <div key={day} className="space-y-2">
+                  <h3 className="font-semibold">{day}</h3>
+                  <div className="space-y-2">
+                    <div className="bg-gray-50 p-2 rounded">
+                      <p className="text-sm font-medium">Mathematics</p>
+                      <p className="text-xs text-gray-600">8:00 - 9:30</p>
+                    </div>
+                    <div className="bg-gray-50 p-2 rounded">
+                      <p className="text-sm font-medium">Physics</p>
+                      <p className="text-xs text-gray-600">9:45 - 11:15</p>
+                    </div>
+                    <div className="bg-gray-50 p-2 rounded">
+                      <p className="text-sm font-medium">Chemistry</p>
+                      <p className="text-xs text-gray-600">11:30 - 1:00</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        </CardContent>
+      </Card>
+  );
 }
 

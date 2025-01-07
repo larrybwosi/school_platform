@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Teacher } from "../mockData";
+import { mockTimeSlots } from "./types";
 
 // Validation schemas
 export const teacherSchema = z.object({

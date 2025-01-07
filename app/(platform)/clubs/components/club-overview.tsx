@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, Calendar, Target, Trophy, Book, MapPin } from 'lucide-react'
-import { Club } from "../types/club"
+import { Club } from "@/types/club"
 
 export function ClubOverview({ club }: { club: Club }) {
   return (

@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
-import { getProject, updateProjectPrivacy } from '../../../../actions/projectActions'
-import { ProjectDetails } from '../../../../components/project-details'
-import { ProjectMembers } from '../../../../components/project-members'
-import { ProjectMedia } from '../../../../components/project-media'
-import { ProjectHighlights } from '../../../../components/project-highlights'
-import { ProjectReputation } from '../../../../components/project-reputation'
+import { getProject, updateProjectPrivacy } from '@/actions/projectActions'
+import { ProjectDetails } from '../../../components/project-details'
+import { ProjectMembers } from '../../../components/project-members'
+import { ProjectMedia } from '../../../components/project-media'
+import { ProjectHighlights } from '../../../components/project-highlights'
+import { ProjectReputation } from '../../../components/project-reputation'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Edit, ThumbsUp, Trash2, Plus, Clock, PlayCircle, PauseCircle, CheckCircle2, XCircle, Lock } from 'lucide-react'
-import { Project } from "../types/club"
+import { Project } from "@/types/club"
 import Link from 'next/link'
 
 const ProjectStatusBadge = ({ status }: { status: Project['status'] }) => {

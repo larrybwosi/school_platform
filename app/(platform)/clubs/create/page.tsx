@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Club } from '../types'
-import { ClubCreation } from '../components/Creation'
+// import { ClubCreation } from '../../components/Creation'
 
 export default function CreateClubPage() {
   const router = useRouter()
@@ -21,7 +21,7 @@ export default function CreateClubPage() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">Create New Club</h1>
-      <ClubCreation onCreateClub={handleClubCreate} isCreating={isCreating} />
+      {/* <ClubCreation onCreateClub={handleClubCreate} isCreating={isCreating} /> */}
     </div>
   )
 }

@@ -1,8 +1,6 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import { Trophy, Star, Users } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { MotionDiv, MotionSection } from '../motion'
 
 const achievements = [
   { 
@@ -24,7 +22,7 @@ const achievements = [
 
 export default function AchievementHighlights() {
   return (
-    <motion.section 
+    <MotionSection 
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 1 }}
@@ -36,7 +34,7 @@ export default function AchievementHighlights() {
         </h2>
         <div className="grid md:grid-cols-3 gap-10">
           {achievements.map((stat, index) => (
-            <motion.div
+            <MotionDiv
               key={stat.label}
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -53,11 +51,11 @@ export default function AchievementHighlights() {
                   <p className="text-gray-600 text-lg">{stat.label}</p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>
-    </motion.section>
+    </MotionSection>
   )
 }
 

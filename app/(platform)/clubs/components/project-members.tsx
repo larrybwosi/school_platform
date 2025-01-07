@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ProjectMember } from "../types/club"
+import { ProjectMember } from "@/types/club"
 
 export function ProjectMembers({ members }: { members: ProjectMember[] }) {
   return (

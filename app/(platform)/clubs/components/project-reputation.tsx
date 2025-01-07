@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ThumbsUp } from 'lucide-react'
-import { Project } from "../types/club"
-import { updateProjectReputation } from "../actions/projectActions"
+import { Project } from "@/types/club"
+import { updateProjectReputation } from "@/actions/projectActions"
 
 export function ProjectReputation({ project }: { project: Project }) {
   const [reputation, setReputation] = useState(project.reputation)

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Member } from "../types/club"
+import { Member } from "@/types/club"
 
 export function ClubMembers({ members }: { members: Member[] }) {
   return (

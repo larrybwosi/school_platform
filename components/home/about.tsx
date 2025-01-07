@@ -1,10 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, GraduationCap, Lightbulb, Users } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
+import { MotionDiv } from '../motion'
 
 const Details = [
   {
@@ -51,7 +51,7 @@ export default function AboutSections() {
   return (
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-6">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -63,7 +63,7 @@ export default function AboutSections() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover how we&apos;re redefining education through innovation, community, and excellence.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         {Details.map((section, index) => {
           const [ref, inView] = useInView({
@@ -74,7 +74,7 @@ export default function AboutSections() {
           const Icon = section.icon
 
           return (
-            <motion.div 
+            <MotionDiv 
               key={section.title}
               ref={ref}
               initial="hidden"
@@ -88,7 +88,7 @@ export default function AboutSections() {
                 items-center my-32 gap-16 relative
               `}
             >
-              <motion.div 
+              <MotionDiv 
                 variants={fadeInUpVariants}
                 className="w-full md:w-1/2 relative group"
               >
@@ -102,16 +102,16 @@ export default function AboutSections() {
                   />
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <motion.div
+                <MotionDiv
                   variants={fadeInUpVariants}
                   className="absolute -bottom-8 left-8 bg-white p-6 rounded-xl shadow-lg"
                 >
                   <div className="text-3xl font-bold text-primary mb-1">{section.stats.value}</div>
                   <div className="text-sm text-gray-600">{section.stats.label}</div>
-                </motion.div>
-              </motion.div>
+                </MotionDiv>
+              </MotionDiv>
 
-              <motion.div 
+              <MotionDiv 
                 variants={fadeInUpVariants}
                 className={`w-full md:w-1/2 ${isLeft ? 'md:pl-12' : 'md:pr-12'}`}
               >
@@ -133,8 +133,8 @@ export default function AboutSections() {
                   Learn More 
                   <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
-              </motion.div>
-            </motion.div>
+              </MotionDiv>
+            </MotionDiv>
           )
         })}
       </div>

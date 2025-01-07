@@ -9,8 +9,8 @@ import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Project, Milestone } from "../types/club"
-import { updateProject, addMilestone } from "../actions/clubActions"
+import { Project, Milestone } from "@/types/club"
+import { updateProject,  } from "@/actions/clubActions"
 
 export function ProjectDetails({ project: initialProject }: { project: Project }) {
   const [project, setProject] = useState(initialProject)
@@ -25,11 +25,11 @@ export function ProjectDetails({ project: initialProject }: { project: Project }
   }
 
   const handleAddMilestone = async (milestone: Omit<Milestone, 'id'>) => {
-    const newMilestone = await addMilestone(project.id, milestone)
-    setProject(prev => ({
-      ...prev,
-      milestones: [...prev.milestones, newMilestone]
-    }))
+    // const newMilestone = await addMilestone(project.id, milestone)
+    // setProject(prev => ({
+    //   ...prev,
+    //   milestones: [...prev.milestones, newMilestone]
+    // }))
   }
 
   const completedMilestones = project.milestones.filter(m => m.status === 'COMPLETED').length

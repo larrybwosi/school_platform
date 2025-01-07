@@ -32,6 +32,9 @@ export function ClubSettings({ club: initialClub }: { club: Club }) {
     }
   }
 
+  const handleFileUpload = (field: string, e: React.ChangeEvent<HTMLInputElement>)=>{
+
+  }
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-6">

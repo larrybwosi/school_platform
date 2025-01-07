@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { MotionDiv } from '../motion';
 
 export const Location = () => {
   const [ref, inView] = useInView({
@@ -11,7 +11,7 @@ export const Location = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -69,7 +69,7 @@ export const Location = () => {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );

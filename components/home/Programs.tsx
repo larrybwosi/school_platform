@@ -1,7 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ArrowRight } from 'lucide-react';
+import { MotionDiv } from '../motion';
 
 const programs = [
   {
@@ -33,7 +32,7 @@ export const Programs = () => {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -46,11 +45,11 @@ export const Programs = () => {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Discover our diverse range of programs designed to prepare you for success in your chosen field.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programs.map((program, index) => (
-            <motion.div
+            <MotionDiv
               key={program.title}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -79,7 +78,7 @@ export const Programs = () => {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </button>
               </div>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>

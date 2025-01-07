@@ -85,19 +85,27 @@ export default async function ClubDashboard({ params }: { params: { id: string }
                 <h2 className="text-xl font-semibold">Trending Projects</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {club.projects.filter(p => p.status === 'IN_PROGRESS').map(project => (
-                  <Suspense key={project.id} fallback={<div>Loading project...</div>}>
-                    <ProjectCard project={project} />
-                  </Suspense>
-                ))}
+                {club.projects
+                  .filter((p) => p.status === "IN_PROGRESS")
+                  .map((project) => (
+                    <Suspense
+                      key={project.id}
+                      fallback={<div>Loading project...</div>}
+                    >
+                      <ProjectCard isMember project={project} />
+                    </Suspense>
+                  ))}
               </div>
             </div>
             <div className="space-y-4">
               <h2 className="text-xl font-semibold">All Projects</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {club.projects.map(project => (
-                  <Suspense key={project.id} fallback={<div>Loading project...</div>}>
-                    <ProjectCard project={project} />
+                {club.projects.map((project) => (
+                  <Suspense
+                    key={project.id}
+                    fallback={<div>Loading project...</div>}
+                  >
+                    <ProjectCard isMember project={project} />
                   </Suspense>
                 ))}
               </div>
@@ -111,6 +119,6 @@ export default async function ClubDashboard({ params }: { params: { id: string }
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 

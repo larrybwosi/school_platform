@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MediaItem } from "../types/club"
+import { MediaItem } from "@/types/club"
 
 export function ProjectMedia({ mediaItems }: { mediaItems: MediaItem[] }) {
   return (

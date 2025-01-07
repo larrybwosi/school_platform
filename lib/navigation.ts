@@ -26,8 +26,8 @@ const navigationConfig = {
       icon: SquareTerminal,
       items: [
         { title: "Overview", url: "/dashboard" },
-        { title: "Analytics", url: "/dashboard/analytics" },
-        { title: "Settings", url: "/dashboard/settings" },
+        { title: "Analytics", url: "#" },
+        { title: "Settings", url: "#" },
       ]
     },
     {
@@ -35,9 +35,9 @@ const navigationConfig = {
       url: "/exams",
       icon: BookOpen,
       items: [
-        { title: "View Exams", url: "/exams" },
-        { title: "Add Exam", url: "/exams/add" },
-        { title: "Exam Results", url: "/exams/results" },
+        { title: "View Exams", url: "#" },
+        { title: "Add Exam", url: "#" },
+        { title: "Exam Results", url: "#" },
       ]
     },
     {
@@ -47,8 +47,8 @@ const navigationConfig = {
       items: [
         { title: "Student Portal", url: "/portals/student" },
         { title: "Teacher Portal", url: "/portals/teacher" },
-        { title: "Timetable", url: "/portals/timetable" },
-        { title: "Staff Portal", url: "/portals/staff" },
+        { title: "Timetable", url: "#" },
+        { title: "Staff Portal", url: "#" },
       ]
     },
     {

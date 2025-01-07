@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { MotionDiv, MotionH1, MotionP } from '../motion';
 import { Button } from '../ui/btn';
 
 export const Hero = () => {
@@ -16,22 +16,22 @@ export const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 z-10">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-3xl text-white"
         >
-          <motion.h1
+          <MotionH1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-5xl md:text-6xl font-bold mb-6"
           >
             Shape Your Future with Excellence
-          </motion.h1>
+          </MotionH1>
           
-          <motion.p
+          <MotionP
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -39,9 +39,9 @@ export const Hero = () => {
           >
             Discover a world-class education that empowers you to reach your full potential
             and make a lasting impact on the world.
-          </motion.p>
+          </MotionP>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
@@ -51,8 +51,8 @@ export const Hero = () => {
             <Button variant="outline" size="lg">
               Explore Programs
             </Button>
-          </motion.div>
-        </motion.div>
+          </MotionDiv>
+        </MotionDiv>
       </div>
     </div>
   );

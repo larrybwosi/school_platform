@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Highlight } from "../types/club"
+import { Highlight } from "@/types/club"
 
 export function ProjectHighlights({ highlights }: { highlights: Highlight[] }) {
   return (

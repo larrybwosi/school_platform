@@ -1,7 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { GraduationCap, Users, Globe, Award } from 'lucide-react';
+import { MotionDiv } from '../motion';
 
 const features = [
   {
@@ -35,7 +34,7 @@ export const Features = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -48,11 +47,11 @@ export const Features = () => {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Experience excellence in education with our comprehensive approach to learning and development.
           </p>
-        </motion.div>
+        </MotionDiv>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <motion.div
+            <MotionDiv
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -68,7 +67,7 @@ export const Features = () => {
               <p className="text-gray-600">
                 {feature.description}
               </p>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>

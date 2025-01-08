@@ -2,11 +2,13 @@
 
 import { mockClubs } from '@/app/(platform)/clubs/mock-data';
 import { Club, Project, Milestone } from '@/types/club'
+import { connection } from 'next/server';
 
 export async function getClubs(searchParams: {
   [key: string]: string | string[] | undefined;
 }): Promise<Club[]> {
   // Simulate API delay
+    await connection();
   await new Promise((resolve) => setTimeout(resolve, 500));
 
   let filteredClubs = [...mockClubs];
@@ -58,6 +60,7 @@ export async function getClubs(searchParams: {
 export async function getClub(id: string): Promise<Club> {
   // In a real application, you would fetch this data from a database
   await new Promise(resolve => setTimeout(resolve, 500)) // Simulate API delay
+  await connection();
   const club = mockClubs.find(c => c.id === id)
   if (!club) {
     throw new Error("Club not found")
@@ -68,6 +71,7 @@ export async function getClub(id: string): Promise<Club> {
 export async function updateClub(id: string, data: Partial<Club>): Promise<Club> {
   // In a real application, you would update the database
   await new Promise(resolve => setTimeout(resolve, 500)) // Simulate API delay
+  await connection();
   const clubIndex = mockClubs.findIndex(c => c.id === id)
   if (clubIndex === -1) {
     throw new Error("Club not found")

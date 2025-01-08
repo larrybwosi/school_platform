@@ -249,7 +249,8 @@ function AddMilestoneForm({ onSubmit }: { onSubmit: (milestone: Omit<Milestone, 
     dueDate: new Date(),
     status: 'NOT_STARTED',
     assignedTo: '',
-    customFields: []
+    customFields: [],
+    isCompleted:false
   })
 
   const handleSubmit = (e: React.FormEvent) => {

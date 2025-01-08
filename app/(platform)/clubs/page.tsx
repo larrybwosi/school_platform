@@ -25,7 +25,6 @@ const categories = [
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 export default async function ClubsOverview(props: { searchParams: SearchParams }) {
-
   const searchParams = await props?.searchParams;
   const clubs = await getClubs(searchParams);
 

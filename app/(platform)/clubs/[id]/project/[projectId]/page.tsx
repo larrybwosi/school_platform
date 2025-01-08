@@ -14,7 +14,9 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 
 export default async function ProjectPage({ params }: { params: { id: string, projectId: string } }) {
-  const project = await getProject(params.id, params.projectId)
+  const { id, projectId } = await params;
+  const project = await getProject(id, projectId)
+  console.log(projectId); 
 
   if (!project) {
     notFound()

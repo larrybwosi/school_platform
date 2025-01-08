@@ -37,7 +37,7 @@ export function ClubSettings({ club: initialClub }: { club: Club }) {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         <Card>
           <CardHeader>
             <CardTitle>General Information</CardTitle>

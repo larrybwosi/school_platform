@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -25,6 +25,7 @@ import {
   History,
   BadgeCheck,
 } from "lucide-react";
+import Link from "next/link";
 
 // Mock data
 const mockDepartments = [
@@ -216,9 +217,6 @@ const DepartmentCard = ({ department }) => {
               {department.metrics.publications} publications
             </span>
           </div>
-          <Progress
-            value={Math.min((department.metrics.publications / 100) * 100, 100)}
-          />
         </div>
       </CardContent>
 
@@ -227,13 +225,15 @@ const DepartmentCard = ({ department }) => {
           <History className="w-4 h-4" />
           Established {department.createdAt.getFullYear()}
         </div>
-        <Button
-          variant="ghost"
-          className="group-hover:translate-x-1 transition-transform"
-        >
-          View Details
-          <ChevronRight className="w-4 h-4 ml-1" />
-        </Button>
+        <Link href={`/departments/${department.id}`}>
+          <Button
+            variant="ghost"
+            className="group-hover:translate-x-1 transition-transform"
+          >
+            View Details
+            <ChevronRight className="w-4 h-4 ml-1" />
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

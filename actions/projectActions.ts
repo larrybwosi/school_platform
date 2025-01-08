@@ -1,9 +1,10 @@
-'use server'
+'use cache'
 
+import { mockClubs } from '@/app/(platform)/clubs/mock-data'
 import { Project, MediaItem, Highlight } from '../types/club'
-import { mockClubs } from './clubActions'
 
 export async function getProject(clubId: string, projectId: string): Promise<Project | undefined> {
+  console.log(clubId)
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)

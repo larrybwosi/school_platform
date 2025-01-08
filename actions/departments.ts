@@ -2,6 +2,7 @@
 
 import { Department, mockDepartments } from '@/lib/mockData'
 import { revalidatePath } from 'next/cache'
+import { connection } from 'next/server'
 
 // Mock database operations
 let departments: Department[] = []
@@ -11,6 +12,7 @@ export async function getDepartments(): Promise<Department[]> {
 }
 
 export async function getDepartmentById(id: number): Promise<Department | undefined> {
+  await connection();
   return mockDepartments.find(dept => dept.id === id)
 }
 

@@ -12,7 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Pagination } from './pagination'
 import { Input } from "@/components/ui/input"
@@ -25,6 +24,7 @@ import {
 } from "@/app/library/mock-data";
 import { getStudents } from "@/app/library/mock-students";
 import { Student } from '@/lib/mockData'
+import { MotionDiv } from './motion'
 
 export function LibraryInfo() {
   const [selectedStudent, setSelectedStudent] = useState<Student>()
@@ -156,7 +156,7 @@ export function LibraryInfo() {
                         </DialogHeader>
                         <div className="mt-4">
                           {selectedStudent && getStudentBorrowRecords(selectedStudent.id).map((record, index) => (
-                            <motion.div
+                            <MotionDiv
                               key={record.id}
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
@@ -166,7 +166,7 @@ export function LibraryInfo() {
                               <p><strong>Book:</strong> {getBookById(record.bookId)?.title}</p>
                               <p><strong>Borrowed:</strong> {new Date(record.borrowDate).toLocaleDateString()}</p>
                               <p><strong>Returned:</strong> {record.returnDate ? new Date(record.returnDate).toLocaleDateString() : 'Not returned'}</p>
-                            </motion.div>
+                            </MotionDiv>
                           ))}
                         </div>
                       </DialogContent>

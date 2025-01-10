@@ -1,34 +1,9 @@
-import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Laptop } from 'lucide-react'
 
-const subjects = [
-  {
-    id: 1,
-    name: "Data Structures",
-    semester: 3,
-    faculty: "Dr. Smith",
-    progress: 75,
-  },
-  {
-    id: 2,
-    name: "Database Management",
-    semester: 4,
-    faculty: "Prof. Brown",
-    progress: 60,
-  },
-  {
-    id: 3,
-    name: "Machine Learning",
-    semester: 7,
-    faculty: "Dr. Williams",
-    progress: 45,
-  },
-]
-
-export function SubjectList() {
+export function SubjectList({ subjects }) {
   return (
-    <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
+    <Card className="border-none shadow-md bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Department Subjects</CardTitle>
         <CardDescription>

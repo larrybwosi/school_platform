@@ -5,17 +5,19 @@ import { ProjectCard } from '../components/project-card'
 import { ProjectDetails } from '../components/project-details'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-import { ImageIcon, Plus, TrendingUp } from 'lucide-react'
+import { ImageIcon, Plus, Settings, TrendingUp, Users } from 'lucide-react'
 import { ClubSettings } from '../components/club-settings'
 import { getClub } from '@/actions/clubActions'
 import Image from 'next/image'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { connection } from 'next/server'
 
 export default async function ClubDashboard({ params }: { params: { id: string } }) {
   const { id } = await params
   const club = await getClub(id)
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <div className="p-6 mx-auto space-y-6">
       <div className="relative w-full h-48 rounded-xl bg-gray-100 overflow-hidden">
         {club.banner ? (
           <Image
@@ -32,12 +34,10 @@ export default async function ClubDashboard({ params }: { params: { id: string }
         <div className="absolute bottom-4 left-4 flex items-center gap-4">
           <div className="w-20 h-20 rounded-full bg-white shadow-lg overflow-hidden">
             {club.icon ? (
-              <Image
-                src={club.icon}
-                fill
-                alt="Club icon"
-                className="w-full h-full object-cover"
-              />
+              <Avatar>
+                <AvatarImage src={club.icon} />
+                <AvatarFallback>{club.name}</AvatarFallback>
+              </Avatar>
             ) : (
               <div className="flex items-center justify-center h-full bg-gray-100">
                 <ImageIcon className="w-8 h-8 text-gray-400" />
@@ -54,12 +54,34 @@ export default async function ClubDashboard({ params }: { params: { id: string }
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-5 lg:w-[600px]">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="members">Members</TabsTrigger>
-          <TabsTrigger value="projects">Projects</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-        </TabsList>
+        <TabsTrigger
+          value="overview"
+          className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600"
+        >
+          <TrendingUp className="w-4 h-4 mr-2" />
+          Overview
+        </TabsTrigger>
+        <TabsTrigger
+          value="members"
+          className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600"
+        >
+          <Users className="w-4 h-4 mr-2" />
+          Members
+        </TabsTrigger>
+        <TabsTrigger
+          value="projects"
+          className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Projects
+        </TabsTrigger>
+        <TabsTrigger
+          value="settings"
+          className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600"
+        >
+          <Settings className="w-4 h-4 mr-2" />
+          Settings
+        </TabsTrigger>
         <TabsContent value="overview">
           <Suspense fallback={<div>Loading overview...</div>}>
             <ClubOverview club={club} />

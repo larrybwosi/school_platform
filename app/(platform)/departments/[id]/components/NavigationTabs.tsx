@@ -1,15 +1,15 @@
 'use client'
 
-import React from 'react'
 import { BarChart3, Book, BookOpen, GraduationCap, User } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useRouter } from 'next/navigation';
 
 interface NavigationTabsProps {
-  selectedTab: string
-  setSelectedTab: (tab: string) => void
+  searchParams:any
+  selectedTab: string;
 }
 
-export function NavigationTabs({ selectedTab, setSelectedTab }: NavigationTabsProps) {
+export function NavigationTabs({searchParams, selectedTab }: NavigationTabsProps) {
   const tabs = [
     { id: "overview", label: "Overview", icon: BookOpen },
     { id: "exams", label: "Exams", icon: Book },
@@ -17,6 +17,14 @@ export function NavigationTabs({ selectedTab, setSelectedTab }: NavigationTabsPr
     { id: "courses", label: "Courses", icon: GraduationCap },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
   ]
+  const router = useRouter()
+  
+  const setSelectedTab = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("selectedTab", value);
+    router.push(`?${params.toString()}`);
+  };
+
 
   return (
     <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">

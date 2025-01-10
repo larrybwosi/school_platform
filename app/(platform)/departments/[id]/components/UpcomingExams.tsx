@@ -1,27 +1,9 @@
-import React from 'react'
 import { Book, ChevronRight, Filter } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 
-const upcomingExams = [
-  {
-    id: 1,
-    subject: "Data Structures",
-    type: "CAT-1",
-    date: "2025-02-15",
-    status: "Ready",
-  },
-  {
-    id: 2,
-    subject: "Database Management",
-    type: "Final",
-    date: "2025-02-20",
-    status: "Pending Review",
-  },
-]
-
-export function UpcomingExams() {
+export function UpcomingExams({ exams }) {
   return (
-    <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
+    <Card className="border-none shadow-md bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
           <CardTitle>Upcoming Examinations</CardTitle>
@@ -35,7 +17,7 @@ export function UpcomingExams() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {upcomingExams.map((exam) => (
+          {exams.map((exam) => (
             <div
               key={exam.id}
               className="flex items-center justify-between p-4 bg-white rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-200 hover:shadow-md group"

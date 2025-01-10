@@ -1,10 +1,11 @@
-'use cache'
+'use server'
 
 import { mockClubs } from '@/app/(platform)/clubs/mock-data'
 import { Project, MediaItem, Highlight } from '../types/club'
+import { connection } from 'next/server'
 
 export async function getProject(clubId: string, projectId: string): Promise<Project | undefined> {
-  console.log(clubId)
+  await connection()
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)
@@ -13,6 +14,7 @@ export async function getProject(clubId: string, projectId: string): Promise<Pro
 }
 
 export async function updateProject(clubId: string, projectId: string, data: Partial<Project>): Promise<Project> {
+  await connection();
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)
@@ -24,6 +26,7 @@ export async function updateProject(clubId: string, projectId: string, data: Par
 }
 
 export async function updateProjectPrivacy(clubId: string, projectId: string, isPrivate: boolean): Promise<Project> {
+  await connection();
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)
@@ -35,6 +38,7 @@ export async function updateProjectPrivacy(clubId: string, projectId: string, is
 }
 
 export async function updateProjectReputation(clubId: string, projectId: string): Promise<number> {
+  await connection();
   await new Promise(resolve => setTimeout(resolve, 500)) // Simulate API delay
   const club = mockClubs.find(c => c.id === clubId)
   if (!club) throw new Error("Club not found")
@@ -47,6 +51,7 @@ export async function updateProjectReputation(clubId: string, projectId: string)
 
 export async function addMediaItem(clubId: string, projectId: string, mediaItem: Omit<MediaItem, 'id'>): Promise<MediaItem> {
   // Simulate API delay
+  await connection();
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)
   if (!club) throw new Error("Club not found")
@@ -61,6 +66,7 @@ export async function addMediaItem(clubId: string, projectId: string, mediaItem:
 }
 
 export async function addHighlight(clubId: string, projectId: string, highlight: Omit<Highlight, 'id'>): Promise<Highlight> {
+  await connection();
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)
@@ -76,6 +82,7 @@ export async function addHighlight(clubId: string, projectId: string, highlight:
 }
 
 export async function updateProjectProgress(clubId: string, projectId: string, progress: number): Promise<number> {
+  await connection();
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500))
   const club = mockClubs.find(c => c.id === clubId)

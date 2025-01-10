@@ -1,34 +1,9 @@
-import React from 'react'
-import { Calendar, Clock, FileUp, Users } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-const activities = [
-  {
-    text: "New exam paper submitted for Data Structures",
-    desc: "CAT-1 examination",
-    time: "2 hours ago",
-    icon: FileUp,
-    color: "blue",
-  },
-  {
-    text: "Faculty meeting scheduled",
-    desc: "Department review",
-    time: "5 hours ago",
-    icon: Users,
-    color: "green",
-  },
-  {
-    text: "Exam schedule updated",
-    desc: "Final examinations",
-    time: "1 day ago",
-    icon: Calendar,
-    color: "purple",
-  },
-]
-
-export function RecentActivity() {
+export function RecentActivity({ activities }) {
   return (
-    <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
+    <Card className="border-none shadow-md bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Recent Activity</CardTitle>
       </CardHeader>

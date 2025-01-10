@@ -12,8 +12,11 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import Image from 'next/image'
+import { connection } from 'next/server'
 
 export default async function ProjectPage({ params }: { params: { id: string, projectId: string } }) {
+  await connection()
   const { id, projectId } = await params;
   const project = await getProject(id, projectId)
   console.log(projectId); 
@@ -52,17 +55,18 @@ export default async function ProjectPage({ params }: { params: { id: string, pr
     }
   }
 
-  const handlePrivacyToggle = async () => {
-    await updateProjectPrivacy(params.id, params.projectId, !project.isPrivate)
-  }
+  // const handlePrivacyToggle = async () => {
+  //   await updateProjectPrivacy(params.id, params.projectId, !project.isPrivate)
+  // }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <div className="p-2 mx-auto space-y-6">
       <div className="relative w-full h-64 rounded-xl bg-gray-100 overflow-hidden">
-        <img
+        <Image
           src={project.coverImage}
           alt={`${project.name} cover`}
           className="w-full h-full object-cover"
+          fill
         />
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
           <h1 className="text-3xl font-bold text-white">{project.name}</h1>
@@ -81,7 +85,7 @@ export default async function ProjectPage({ params }: { params: { id: string, pr
           <Switch
             id="project-privacy"
             checked={project.isPrivate}
-            onCheckedChange={handlePrivacyToggle}
+            // onCheckedChange={handlePrivacyToggle}
           />
           <Label htmlFor="project-privacy">Private Project</Label>
         </div>

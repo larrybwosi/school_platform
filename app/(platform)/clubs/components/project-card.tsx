@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Edit, ThumbsUp, Trash2, Plus, Clock, PlayCircle, PauseCircle, CheckCircle2, XCircle, Lock } from 'lucide-react'
 import { Project } from "@/types/club"
 import Link from 'next/link'
+import Image from 'next/image'
 
 const ProjectStatusBadge = ({ status }: { status: Project['status'] }) => {
   const statusColors = {
@@ -48,10 +49,12 @@ export function ProjectCard({ project, isMember }: { project: Project, isMember:
       onMouseLeave={() => setIsHovered(false)}
     >
       <CardHeader className="relative p-0">
-        <img 
+        <Image 
           src={project.coverImage}
           alt={project.name} 
           className="w-full h-48 object-cover rounded-t-lg"
+          width={450}
+          height={198}
         />
         <div className="absolute top-2 right-2 flex items-center space-x-2">
           <ProjectStatusBadge status={project.status} />
@@ -59,7 +62,7 @@ export function ProjectCard({ project, isMember }: { project: Project, isMember:
         </div>
         {isHovered && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <Link href={`/club/${project.clubId}/project/${project.id}`}>
+            <Link href={`/clubs/${project.clubId}/project/${project.id}`}>
               <Button>View Project</Button>
             </Link>
           </div>

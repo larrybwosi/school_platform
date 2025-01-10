@@ -1,6 +1,7 @@
 'use server'
 
-import { mockData } from './mockData'
+import { mockData } from "@/app/(platform)/departments/[id]/lib/mockData"
+
 
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))

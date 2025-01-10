@@ -1,30 +1,32 @@
+import { Book, Calendar, FileUp, User, Users } from "lucide-react";
+
 export const mockData = {
   quickStats: [
     {
       title: "Faculty Members",
       value: 24,
-      icon: "User",
+      icon: User,
       trend: "+2 this semester",
       trendUp: true,
     },
     {
       title: "Total Students",
       value: 450,
-      icon: "Users",
+      icon: Users,
       trend: "+45 from last year",
       trendUp: true,
     },
     {
       title: "Active Courses",
       value: 3,
-      icon: "Book",
+      icon: Book,
       trend: "All running",
       trendUp: true,
     },
     {
       title: "Upcoming Exams",
       value: 2,
-      icon: "Calendar",
+      icon: Calendar,
       trend: "Next in 3 days",
       trendUp: false,
     },
@@ -73,21 +75,21 @@ export const mockData = {
       text: "New exam paper submitted for Data Structures",
       desc: "CAT-1 examination",
       time: "2 hours ago",
-      icon: "FileUp",
+      icon: FileUp,
       color: "blue",
     },
     {
       text: "Faculty meeting scheduled",
       desc: "Department review",
       time: "5 hours ago",
-      icon: "Users",
+      icon: Users,
       color: "green",
     },
     {
       text: "Exam schedule updated",
       desc: "Final examinations",
       time: "1 day ago",
-      icon: "Calendar",
+      icon: Calendar,
       color: "purple",
     },
   ],

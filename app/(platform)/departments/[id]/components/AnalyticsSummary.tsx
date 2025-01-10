@@ -1,15 +1,9 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-const stats = [
-  { label: "Average Attendance", value: "87%", trend: "+2.5%" },
-  { label: "Pass Rate", value: "92%", trend: "+4.3%" },
-  { label: "Course Completion", value: "78%", trend: "+1.2%" },
-]
-
-export function AnalyticsSummary() {
+export function AnalyticsSummary({ stats }) {
   return (
-    <Card className="border-none shadow-md bg-white/50 backdrop-blur-sm">
+    <Card className="border-none shadow-md bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Quick Stats</CardTitle>
       </CardHeader>

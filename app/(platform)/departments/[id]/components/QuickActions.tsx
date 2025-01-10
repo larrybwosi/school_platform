@@ -1,12 +1,11 @@
-import React from 'react'
+'use client'
 import { ArrowUpRight, Calendar, CheckCircle2, FileUp, PlusCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-interface QuickActionsProps {
-  onSubmitExam: () => void
-}
 
-export function QuickActions({ onSubmitExam }: QuickActionsProps) {
+export function QuickActions() {
+  
+  const onSubmitExam = () => {};
   const actions = [
     {
       label: "Submit Exam Paper",

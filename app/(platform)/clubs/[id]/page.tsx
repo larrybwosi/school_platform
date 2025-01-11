@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { connection } from 'next/server'
 
-export default async function ClubDashboard({ params }: { params: { id: string } }) {
+export default async function ClubDashboard({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const club = await getClub(id)
 

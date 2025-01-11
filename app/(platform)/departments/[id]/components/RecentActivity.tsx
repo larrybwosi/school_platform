@@ -1,7 +1,16 @@
 import { Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-export function RecentActivity({ activities }) {
+
+interface Activity {
+  icon: React.ElementType;
+  text: string;
+  desc: string;
+  time: string;
+  color: string;
+}
+
+export function RecentActivity({ activities }: { activities: Activity[] }) {
   return (
     <Card className="border-none shadow-md bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
       <CardHeader>

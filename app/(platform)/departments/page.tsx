@@ -155,7 +155,7 @@ const DepartmentCard = ({ department }) => {
   const subjectCount = department.subjects.length;
 
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300">
+    <Card className="group hover:shadow-lg transition-all duration-300 ">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div className="space-y-1">
@@ -257,7 +257,7 @@ const DepartmentsOverview = () => {
   );
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
+    <div className="p-6 mx-auto space-y-8 dark:bg-zinc-900">
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-4xl font-bold">Academic Departments</h1>

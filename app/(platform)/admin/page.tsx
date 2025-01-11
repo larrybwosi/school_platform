@@ -190,7 +190,7 @@ const UnifiedDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background lg:p-6 p-4 dark:bg-zinc-900 ">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header with Notifications */}
         <div className="flex justify-between items-center mb-8">
@@ -220,7 +220,7 @@ const UnifiedDashboard = () => {
             return (
               <Card
                 key={index}
-                className={`bg-gradient-to-br from-${iconName}-500/10 to-${iconName}-600/10 dark:from-${iconName}-500/20 dark:to-${iconName}-600/20 hover:scale-105 transition-transform duration-200`}
+                className={`bg-gradient-to-br dark:bg-zinc-800 from-${iconName}-500/10 to-${iconName}-600/10 dark:from-${iconName}-500/20 dark:to-${iconName}-600/20 hover:scale-105 transition-transform duration-200`}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
@@ -246,7 +246,7 @@ const UnifiedDashboard = () => {
           {quickLinks.map((link) => (
             <Card
               key={link.title}
-              className="hover:shadow-lg transition-shadow cursor-pointer"
+              className="hover:shadow-lg transition-shadow cursor-pointer dark:bg-zinc-800 "
             >
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
@@ -277,7 +277,7 @@ const UnifiedDashboard = () => {
 
           <TabsContent value="overview" className="space-y-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className=" dark:bg-zinc-800 ">
                 <CardHeader>
                   <CardTitle>Enrollment Trends</CardTitle>
                   <CardDescription>
@@ -312,7 +312,7 @@ const UnifiedDashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className=" dark:bg-zinc-800 ">
                 <CardHeader>
                   <CardTitle>Faculty Distribution</CardTitle>
                   <CardDescription>
@@ -364,7 +364,7 @@ const UnifiedDashboard = () => {
               {courses.map((course) => (
                 <Card
                   key={course.id}
-                  className="hover:shadow-lg transition-shadow duration-200"
+                  className="hover:shadow-lg transition-shadow duration-200  dark:bg-zinc-800 "
                 >
                   <CardContent className="p-6">
                     <div className="flex justify-between items-start">
@@ -424,7 +424,7 @@ const UnifiedDashboard = () => {
 
           <TabsContent value="performance" className="space-y-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className=" dark:bg-zinc-800 ">
                 <CardHeader>
                   <CardTitle>Academic Performance Metrics</CardTitle>
                 </CardHeader>
@@ -452,7 +452,7 @@ const UnifiedDashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className=" dark:bg-zinc-800 ">
                 <CardHeader>
                   <CardTitle>Resource Utilization</CardTitle>
                 </CardHeader>
@@ -488,7 +488,7 @@ const UnifiedDashboard = () => {
 
         {/* Alerts and Calendar */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
+          <Card className=" dark:bg-zinc-800 ">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Bell className="w-5 h-5" />
@@ -498,7 +498,7 @@ const UnifiedDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {alerts.map((alert, index) => (
-                  <div key={index} className="p-4 bg-secondary rounded-lg">
+                  <div key={index} className="p-4 bg-secondary rounded-lg ">
                     <h4 className="font-medium">{alert.title}</h4>
                     <div className="flex justify-between mt-2 text-sm">
                       <span className="text-muted-foreground">
@@ -514,7 +514,7 @@ const UnifiedDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className=" dark:bg-zinc-800 ">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="w-5 h-5" />

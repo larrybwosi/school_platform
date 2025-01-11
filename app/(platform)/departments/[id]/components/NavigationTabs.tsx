@@ -3,13 +3,15 @@
 import { BarChart3, Book, BookOpen, GraduationCap, User } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useRouter } from 'next/navigation';
+import { useQueryState } from "nuqs";
 
 interface NavigationTabsProps {
   searchParams:any
   selectedTab: string;
 }
 
-export function NavigationTabs({searchParams, selectedTab }: NavigationTabsProps) {
+export function NavigationTabs({ searchParams }: NavigationTabsProps) {
+  const [selectedTab, setSelectedTab] = useQueryState('selectedTab', searchParams)
   const tabs = [
     { id: "overview", label: "Overview", icon: BookOpen },
     { id: "exams", label: "Exams", icon: Book },
@@ -19,15 +21,13 @@ export function NavigationTabs({searchParams, selectedTab }: NavigationTabsProps
   ]
   const router = useRouter()
   
-  const setSelectedTab = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("selectedTab", value);
-    router.push(`?${params.toString()}`);
+  const setSelectedTabFun = (value: string) => {
+    setSelectedTab(value);
   };
 
 
   return (
-    <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+    <Tabs value={selectedTab|| ''} onValueChange={setSelectedTabFun} className="w-full">
       <TabsList className="bg-white p-1 rounded-lg shadow-sm w-full justify-start overflow-x-auto">
         {tabs.map((tab) => (
           <TabsTrigger

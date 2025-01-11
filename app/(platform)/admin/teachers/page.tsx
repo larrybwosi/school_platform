@@ -24,6 +24,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, Upload, Search, Users, BookOpen, GraduationCap, ArrowUpDown } from 'lucide-react';
 import { mockTeachers, Teacher } from "@/lib/mockData";
 import TeacherRow from "@/components/shared/teacher-row";
+import { EntityRow } from "@/components/shared/unified";
 
 type SortConfig = {
   key: keyof Teacher | 'subjectCount';
@@ -127,7 +128,7 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
+    <div className="container mx-auto p-4 space-y-6 dark:bg-zinc-900">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-3xl font-bold">Teacher Management</h1>
         <div className="flex flex-wrap gap-2">
@@ -141,9 +142,11 @@ export default function AdminPanel() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
+        <Card className="dark:bg-zinc-900">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold">Total Teachers</CardTitle>
+            <CardTitle className="text-sm font-semibold">
+              Total Teachers
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -151,47 +154,66 @@ export default function AdminPanel() {
             <p className="text-xs text-muted-foreground">Across all roles</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-zinc-900">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold">Subjects Covered</CardTitle>
+            <CardTitle className="text-sm font-semibold">
+              Subjects Covered
+            </CardTitle>
             <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {new Set(mockTeachers.flatMap(teacher => teacher.subjects)).size}
+              {
+                new Set(mockTeachers.flatMap((teacher) => teacher.subjects))
+                  .size
+              }
             </div>
             <p className="text-xs text-muted-foreground">Unique subjects</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-zinc-900">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold">Average Performance</CardTitle>
+            <CardTitle className="text-sm font-semibold">
+              Average Performance
+            </CardTitle>
             <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {Math.round(
-                mockTeachers.reduce((sum, teacher) => sum + (parseFloat(teacher.performanceIncrease || '0') || 0), 0) / 
-                mockTeachers.length
-              )}%
+                mockTeachers.reduce(
+                  (sum, teacher) =>
+                    sum + (parseFloat(teacher.performanceIncrease || "0") || 0),
+                  0
+                ) / mockTeachers.length
+              )}
+              %
             </div>
-            <p className="text-xs text-muted-foreground">Performance increase</p>
+            <p className="text-xs text-muted-foreground">
+              Performance increase
+            </p>
           </CardContent>
         </Card>
       </div>
 
-      <Card>
+      <Card className="dark:bg-zinc-900">
         <CardHeader>
           <CardTitle>Teacher Management</CardTitle>
-          <CardDescription className="font-semibold">Manage your teaching staff</CardDescription>
+          <CardDescription className="font-semibold">
+            Manage your teaching staff
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="space-y-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <TabsList className="grid grid-cols-2 sm:flex overflow-x-auto">
-                <TabsTrigger className="font-bold" value="all">All Roles</TabsTrigger>
+                <TabsTrigger className="font-bold" value="all">
+                  All Roles
+                </TabsTrigger>
                 {roleData?.roles.map((role) => (
-                  <TabsTrigger className="font-bold" key={role} value={role}>{role}</TabsTrigger>
+                  <TabsTrigger className="font-bold" key={role} value={role}>
+                    {role}
+                  </TabsTrigger>
                 ))}
               </TabsList>
               <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
@@ -211,17 +233,26 @@ export default function AdminPanel() {
                   <SelectContent>
                     <SelectItem value="all">All Roles</SelectItem>
                     {roleData?.roles.map((role) => (
-                      <SelectItem key={role} value={role}>{role}</SelectItem>
+                      <SelectItem key={role} value={role}>
+                        {role}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <Select value={groupBy} onValueChange={(value: 'none' | 'department' | 'role') => setGroupBy(value)}>
+                <Select
+                  value={groupBy}
+                  onValueChange={(value: "none" | "department" | "role") =>
+                    setGroupBy(value)
+                  }
+                >
                   <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Group by" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">No Grouping</SelectItem>
-                    <SelectItem value="department">Group by Department</SelectItem>
+                    <SelectItem value="department">
+                      Group by Department
+                    </SelectItem>
                     <SelectItem value="role">Group by Role</SelectItem>
                   </SelectContent>
                 </Select>
@@ -237,28 +268,64 @@ export default function AdminPanel() {
                       <TableHeader>
                         <TableRow>
                           <TableHead className="w-[50px] md:hidden"></TableHead>
-                          <TableHead className="cursor-pointer" onClick={() => handleSort('name')}>
-                            Name {sortConfig.key === 'name' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="cursor-pointer"
+                            onClick={() => handleSort("name")}
+                          >
+                            Name{" "}
+                            {sortConfig.key === "name" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer" onClick={() => handleSort('role')}>
-                            Role {sortConfig.key === 'role' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="hidden md:table-cell cursor-pointer"
+                            onClick={() => handleSort("role")}
+                          >
+                            Role{" "}
+                            {sortConfig.key === "role" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="cursor-pointer" onClick={() => handleSort('subjectCount')}>
-                            Subjects {sortConfig.key === 'subjectCount' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead
+                            className="cursor-pointer"
+                            onClick={() => handleSort("subjectCount")}
+                          >
+                            Subjects{" "}
+                            {sortConfig.key === "subjectCount" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
-                          <TableHead className="hidden md:table-cell">Grades</TableHead>
-                          <TableHead className="hidden md:table-cell cursor-pointer" onClick={() => handleSort('performanceIncrease')}>
-                            Performance {sortConfig.key === 'performanceIncrease' && <ArrowUpDown className="inline ml-2 h-4 w-4" />}
+                          <TableHead className="hidden md:table-cell">
+                            Grades
+                          </TableHead>
+                          <TableHead
+                            className="hidden md:table-cell cursor-pointer"
+                            onClick={() => handleSort("performanceIncrease")}
+                          >
+                            Performance{" "}
+                            {sortConfig.key === "performanceIncrease" && (
+                              <ArrowUpDown className="inline ml-2 h-4 w-4" />
+                            )}
                           </TableHead>
                           <TableHead className="w-[50px]"></TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {teachers?.map((teacher) => (
-                          <TeacherRow
+                          <EntityRow
                             key={teacher.id}
-                            teacher={teacher}
-                            onEditTeacher={handleEditTeacher}
+                            data={teacher}
+                            type="teacher"
+                            onEdit={handleEditTeacher}
+                            colorScheme={"default"}
+                            showCheckbox={false}
+                            editableFields={[
+                              "name",
+                              "email",
+                              "role",
+                              "department",
+                              "subjects",
+                            ]}
                           />
                         ))}
                       </TableBody>

@@ -36,7 +36,7 @@ export default async function ClubsOverview(props: { searchParams: SearchParams 
   );
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
+    <div className="p-3 mx-auto space-y-8 dark:bg-zinc-900">
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-4xl font-bold">Explore Clubs</h1>

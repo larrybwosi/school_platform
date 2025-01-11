@@ -30,9 +30,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  experimental:{
-    dynamicIO:true
-  }
 };
 
 export default nextConfig;

@@ -4,7 +4,6 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import {
   oneTap,
   admin,
-  passkey,
   organization,
   multiSession,
 } from "better-auth/plugins";
@@ -43,5 +42,5 @@ export const auth = betterAuth({
     },
   },
   secret: process.env.BETTER_AUTH_SECRET,
-  plugins: [admin(), oneTap(), passkey(), organization(), multiSession({maximumSessions: 5})],
+  plugins: [admin(), oneTap(), organization(), multiSession({maximumSessions: 5})],
 });

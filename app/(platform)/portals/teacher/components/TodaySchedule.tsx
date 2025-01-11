@@ -14,7 +14,7 @@ interface Class {
 
 export default function TodaySchedule({ upcomingClasses, isDark }: { upcomingClasses: Class[], isDark: boolean }) {
   return (
-    <Card className={isDark ? "bg-gray-800 border-gray-700" : ""}>
+    <Card className={`dark:bg-zinc-800 border-zinc-700`}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Clock className="h-5 w-5" />
@@ -28,7 +28,7 @@ export default function TodaySchedule({ upcomingClasses, isDark }: { upcomingCla
               key={cls.id}
               className={`flex flex-col gap-2 p-3 ${
                 isDark
-                  ? "bg-gray-700 hover:bg-gray-600"
+                  ? "bg-zinc-700 hover:bg-zinc-600"
                   : "bg-slate-50 hover:bg-slate-100"
               } rounded-lg transition-colors duration-300`}
             >

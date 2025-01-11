@@ -1,6 +1,6 @@
 import { Users, BookOpen, CheckSquare, Award } from 'lucide-react'
 
-export default function QuickStats({ teacherInfo, isDark }) {
+export default function QuickStats({ teacherInfo }) {
   const stats = [
     {
       icon: <Users className="h-6 w-6 text-blue-600" />,
@@ -37,7 +37,7 @@ export default function QuickStats({ teacherInfo, isDark }) {
       {stats.map((stat, idx) => (
         <div
           key={idx}
-          className={`${isDark ? "bg-gray-800" : "bg-white"} p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300`}
+          className={`dark:bg-zinc-800 bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300`}
         >
           <div className="flex items-center gap-3">
             <div className={`p-3 ${stat.bg} rounded-lg`}>{stat.icon}</div>

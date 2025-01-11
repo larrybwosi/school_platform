@@ -72,7 +72,7 @@ export default async function Page(props: PageProps) {
 
   return (
      <Suspense fallback={<LoadingSkeleton />}>
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800">
           <div className="container mx-auto space-y-8 p-4 sm:p-6 lg:p-8">
             {/* Header Section */}
             <div className="fade-in">
@@ -80,7 +80,7 @@ export default async function Page(props: PageProps) {
             </div>
 
             {/* Navigation */}
-            <div className="sticky top-0 z-10 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg rounded-lg shadow-sm fade-in">
+            <div className="sticky top-0 z-10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg rounded-lg shadow-sm fade-in">
               <NavigationTabs
                 selectedTab={selectedTab as string}
                 searchParams={await props.searchParams}

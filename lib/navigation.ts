@@ -92,7 +92,7 @@ const navigationConfig = {
     },
     {
       title: "Finance",
-      url: "#",
+      url: "/finance",
       icon: Bot,
       items: [
         { title: "Automation Dashboard", url: "#" },

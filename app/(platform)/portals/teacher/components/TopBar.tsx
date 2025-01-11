@@ -16,7 +16,7 @@ export default function TopBar({ teacherInfo }: { teacherInfo: TeacherInfo }) {
   const isDark = theme ==='dark'
   return (
     <div
-      className={`dark:bg-gray-800 bg-white rounded-xl p-6 shadow-lg mb-6 transition-colors duration-300`}
+      className={`dark:bg-zinc-800 bg-white rounded-xl p-6 shadow-lg mb-6 transition-colors duration-300`}
     >
       <div className="flex flex-col lg:flex-row justify-between gap-4">
         <div className="flex items-center gap-4">
@@ -38,7 +38,7 @@ export default function TopBar({ teacherInfo }: { teacherInfo: TeacherInfo }) {
             <input
               type="text"
               placeholder="Search..."
-              className={`px-4 py-2 rounded-lg dark:bg-gray-700 bg-slate-100"
+              className={`px-4 py-2 rounded-lg dark:bg-zinc-700 bg-slate-100"
               } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
             />
             <Search className="absolute right-3 top-2.5 h-5 w-5 opacity-50" />

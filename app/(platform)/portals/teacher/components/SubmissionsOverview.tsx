@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function SubmissionsOverview({ submissions, isDark }: { submissions: any[], isDark: boolean }) {
   return (
-    <Card className={isDark ? "bg-gray-800 border-gray-700" : ""}>
+    <Card className={isDark ? "dark:bg-zinc-800 border-zinc-700" : ""}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <FileText className="h-5 w-5" />
@@ -15,9 +15,8 @@ export default function SubmissionsOverview({ submissions, isDark }: { submissio
           {submissions.map((sub) => (
             <div
               key={sub.id}
-              className={`p-3 ${
-                isDark ? "bg-gray-700 hover:bg-gray-600" : "bg-slate-50 hover:bg-slate-100"
-              } rounded-lg transition-colors duration-300`}
+              className={`p-3 dark:bg-zinc-700 dark:hover:bg-zinc-600 bg-slate-50
+                hover:bg-slate-100 rounded-lg transition-colors duration-300`}
             >
               <div className="flex justify-between items-center mb-2">
                 <span className="font-medium">{sub.title}</span>
@@ -27,7 +26,9 @@ export default function SubmissionsOverview({ submissions, isDark }: { submissio
                 <div
                   className="bg-green-500 h-2 rounded-full"
                   style={{
-                    width: `${(sub.submitted / (sub.submitted + sub.pending)) * 100}%`,
+                    width: `${
+                      (sub.submitted / (sub.submitted + sub.pending)) * 100
+                    }%`,
                   }}
                 />
               </div>
@@ -42,6 +43,6 @@ export default function SubmissionsOverview({ submissions, isDark }: { submissio
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
